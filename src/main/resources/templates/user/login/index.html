@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="no-referrer" name="referrer"/>
+    <title>Ayuan超市用户登陆</title>
+    <script th:src="@{https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet prefetch'>
+</head>
+<body>
+<div class="cotn_principal">
+    <div class="cont_centrar">
+        <div class="cont_login">
+            <div class="cont_info_log_sign_up">
+                <div class="col_md_login">
+                    <div class="cont_ba_opcitiy">
+                        <h2>LOGIN</h2>
+                        <p>已有账号，点此登录</p>
+                        <button class="btn_login" onClick="cambiar_login()">登录</button>
+                    </div>
+                </div>
+                <div class="col_md_sign_up">
+                    <div class="cont_ba_opcitiy">
+                        <h2>SIGN UP</h2>
+                        <p>未有账号，点此注册</p>
+                        <button class="btn_sign_up" onClick="cambiar_sign_up()">注册</button>
+                    </div>
+                </div>
+            </div>
+            <div class="cont_back_info">
+                <div class="cont_img_back_grey"><img alt="" th:src="@{/image/user/po.jpg}"/></div>
+            </div>
+            <div class="cont_forms">
+                <div class="cont_img_back_"><img alt="" th:src="@{/image/user/po.jpg}"/></div>
+                <div class="cont_form_login"><a href="#" onClick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+                    <h2>LOGIN</h2>
+                    <form method="post" th:action="@{/user/do-login}">
+                        <input name="email" placeholder="邮箱" type="text"/>
+                        <input name="password" placeholder="密码" type="password"/>
+                        <button class="btn_login" onClick="cambiar_login()">登录</button>
+                    </form>
+                </div>
+                <div class="cont_form_sign_up"><a href="#" onClick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+                    <h2>SIGN UP</h2>
+                    <br/><br/>
+                    <input id="email"
+                           name="email" placeholder="邮箱" style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px" type="text"/>
+                    <br/><br/>
+                    <input id="username"
+                           name="username" placeholder="昵称" style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px" type="text"/>
+                    <br/><br/>
+                    <input id="password"
+                           name="password" placeholder="密码" style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px" type="password"/>
+                    <br/><br/>
+                    <input id="repwd"
+                           name="repwd" placeholder="确认密码" style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px" type="password"/>
+                    <br/><br/>
+                    <button class="btn_sign_up" id="button" onclick="button()" type="button">注册</button>
+                </div>
+            </div>
+            <a style="position: relative; top: 15px" th:href="@{/}">
+                &nbsp;暂&nbsp;以&nbsp;游&nbsp;客&nbsp;身&nbsp;份&nbsp;访&nbsp;问&nbsp;
+            </a>
+        </div>
+    </div>
+</div>
+<script>
+    if (sessionStorage.getItem("user_sign_num") > 0) {
+        sessionStorage.setItem("user_sign_num", sessionStorage.getItem("user_sign_num"));
+        change();
+    }
+
+    function button() {
+        var email = document.getElementById("email").value;
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var repwd = document.getElementById("repwd").value;
+
+        $.ajax({
+            type: "POST",
+            url: "/user/sign-up?email=" + email + "&username=" + username + "&password=" + password + "&repwd=" + repwd,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                alert(msg);
+            },
+            error: function () {
+                alert("网络出现了问题！！")
+            }
+        });
+        sessionStorage.setItem("user_sign_num", 60);
+        change();
+    }
+
+    function change() {
+        var button = document.getElementById("button");
+        button.style.background = "grey";
+        button.disabled = true;
+        var time = setInterval(function () {
+            var num = sessionStorage.getItem("user_sign_num");
+            if (num <= 0) {
+                button.style.background = "orangered";
+                button.disabled = false;
+                button.innerText = "重新发送验证码";
+                clearInterval(time);
+            } else {
+                button.innerText = "重新发送验证码（" + num + ")";
+            }
+            sessionStorage.setItem("user_sign_num", --num);
+        }, 1000);
+    }
+</script>
+<script th:src="@{/js/user/index.js}"></script>
+<script th:include="user/common/model::alertMsg"></script>
+</body>
+</html>
+

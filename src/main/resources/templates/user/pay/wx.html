@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="no-referrer" name="referrer"/>
+    <title>微信支付页面</title>
+    <style>
+        body {
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+    </style>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body th:align="center" th:background="@{/image/pay/pay.jpg}">
+<div style="position: absolute;left: 50%;top: 45%;transform: translate(-50%,-50%)">
+    <h3>请使用微信扫描以下二维码完成支付</h3>
+    <img th:src="@{${codeUrl}}" width="300px"/>
+    <!--    <div style="float: left; width: 100%;margin-bottom: auto;margin-top: 15px">-->
+    <!--        <button id="pay-success" class="btn btn-lg" onclick="paySuccess()">完成支付</button>-->
+    <!--    </div>-->
+</div>
+<!--<script>-->
+<!--    function paySuccess() {-->
+<!--        $.ajax({-->
+<!--            type: "GET",-->
+<!--             url: "/user/wxpay/success_notify",-->
+<!--            data: [['mark=' +${mark}]],-->
+<!--            contentType: "application/json; charset=utf-8",-->
+<!--            success: function (msg) {-->
+<!--                if (msg) {-->
+<!--                    alert("已完成支付！");-->
+<!--                    window.location = "/user/order";-->
+<!--                }-->
+<!--            }-->
+<!--        })-->
+<!--    }-->
+<!--</script>-->
+<script th:src="@{/js/user/index.js}"></script>
+<script th:inline="javascript">
+    window.onload = function () {
+        var time = setInterval(function () {
+            $.ajax({
+                type: "GET",
+                url: "/user/check-order-status",
+                data: [['orderMark=' +${orderMark}]],
+                contentType: "application/json; charset=utf-8",
+                success: function (msg) {
+                    if (msg) {
+                        clearInterval(time);
+                        alert("已完成支付！");
+                        window.location = "/user/order";
+                    }
+                }
+            })
+        }, 500);
+    };
+</script>
+</body>
+</html>

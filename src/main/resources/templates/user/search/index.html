@@ -1,0 +1,209 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Basic page needs
+    ============================================ -->
+    <meta charset="utf-8">
+    <meta content="no-referrer" name="referrer"/>
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>搜索结果</title>
+    <meta content="" name="description">
+
+    <!-- Mobile specific metas
+    ============================================ -->
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- fonts
+    ============================================ -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Favicon
+    ============================================ -->
+    <link rel="shortcut icon" th:href="@{/image/user/home/favicon.png}" type="image/x-icon">
+
+    <!-- CSS  -->
+
+    <!-- Bootstrap CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/bootstrap.min.css}">
+
+    <!-- font-awesome CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/font-awesome.min.css}">
+
+    <!-- owl.carousel CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/owl.carousel.css}">
+
+    <!-- owl.theme CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/owl.theme.css}">
+
+    <!-- owl.transitions CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/owl.transitions.css}">
+
+    <!-- fancybox CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/fancybox/jquery.fancybox.css}">
+
+    <!-- animate CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/animate.css}">
+
+    <!-- meanmenu CSS
+    ============================================ -->
+    <link media="all" rel="stylesheet" th:href="@{/css/user/home/meanmenu.min.css}"/>
+
+    <!-- normalize CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/normalize.css}">
+
+    <!-- RS-slider CSS
+    ============================================ -->
+    <link media="screen" rel="stylesheet" th:href="@{/lib/user/home/rs-plugin/css/settings.css}" type="text/css"/>
+
+    <!-- main CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/main.css}">
+
+    <!-- style CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/style.css}">
+
+    <!-- responsive CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/responsive.css}">
+
+    <!-- modernizr js
+    ============================================ -->
+    <script th:src="@{/js/user/home/vendor/modernizr-2.8.3.min.js}"></script>
+
+    <!-- jquery-ui CSS
+    ============================================ -->
+    <link rel="stylesheet" th:href="@{/css/user/home/jquery-ui.css}">
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+
+<!-- header start -->
+<header th:include="user/common/model::header"></header>
+
+<div class="product-tab-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-9" style="left: 50%;transform: translate(-50%,0);">
+                <div class="upsells_products_widget">
+                    <div class="section-heading">
+                        <h3>搜索结果</h3>
+                        <div class="title-icon">
+                            <span><i class="fa fa-angle-left"></i> <i class="fa fa-angle-right"></i></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table style="border: 1px solid grey;width: 100%" th:if="${goodsList.size()==0}">
+                            <tr style="height: 300px">
+                                <td style="text-align: center;font-size: 18px">
+                                    ！！暂未找到与关键字匹配的商品！！
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- single-product start -->
+                        <div class="col-lg-3 col-md-4 col-sm-4" style="width: 220px;height: 340px"
+                             th:each="goods : ${goodsList}" th:if="${goodsList.size()!=0}">
+                            <div class="single-product">
+                                <div class="product-img">
+                                    <a target="_blank" th:href="@{/user/product(id=${goods.getId()})}">
+                                        <img alt="" class="primary-image" th:src="@{${goods.getImg()}}"/>
+                                        <img alt="" class="secondary-image" th:src="@{${goods.getImg()}}"/>
+                                    </a>
+                                    <div class="actions">
+                                        <div class="action-buttons">
+                                            <div class="add-to-cart">
+                                                <a th:href="@{/user/product(id=${goods.getId()})}">&nbsp;点击查看详情&nbsp;</a>
+                                            </div>
+                                            <div class="add-to-cart">
+                                                <a th:href="@{/user/add-cart(id=${goods.getId()})}">&nbsp;加入到购物车&nbsp;</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-content">
+                                    <div class="pro-info">
+                                        <h2 class="product-name">
+                                            <a th:href="@{/user/product(id=${goods.getId()})}">
+                                                [[${goods.getName()}]]
+                                            </a>
+                                        </h2>
+                                        <div class="price-box">
+                                            <span class="new-price">￥[[${goods.getPrice()}]]</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- single-product end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+<!-- brand-area start -->
+<div th:include="user/common/model::brand"></div>
+<!-- brand-area end -->
+<!-- footer start -->
+<footer th:include="user/common/model::footer"></footer>
+<!-- footer end -->
+<!-- JS -->
+<script th:include="user/common/model::alertMsg"></script>
+
+<!-- jquery js -->
+<script th:src="@{/js/user/home/vendor/jquery-1.12.0.min.js}"></script>
+
+<!-- price-slider js -->
+<script th:src="@{/js/user/home/price-slider.js}"></script>
+
+<!-- bootstrap js -->
+<script th:src="@{/js/user/home/bootstrap.min.js}"></script>
+
+<!-- owl.carousel.min js -->
+<script th:src="@{/js/user/home/owl.carousel.min.js}"></script>
+
+<!-- jquery.scrollUp js -->
+<script th:src="@{/js/user/home/jquery.scrollUp.min.js}"></script>
+
+<!-- mixitup js -->
+<script th:src="@{/js/user/home/jquery.mixitup.min.js}"></script>
+
+<!-- fancybox js -->
+<script th:src="@{/js/user/home/fancybox/jquery.fancybox.pack.js}"></script>
+
+<!-- jquery-counterup js -->
+<script th:src="@{/js/user/home/jquery.counterup.min.js}"></script>
+<script th:src="@{/js/user/home/waypoints.min.js}"></script>
+
+<!-- jquery-meanmenu js -->
+<script th:src="@{/js/user/home/jquery.meanmenu.js}"></script>
+
+<!-- RS-Plugin JS
+============================================ -->
+<script th:src="@{/lib/user/home/rs-plugin/js/jquery.themepunch.tools.min.js}" type="text/javascript"></script>
+<script th:src="@{/lib/user/home/rs-plugin/js/jquery.themepunch.revolution.min.js}" type="text/javascript"></script>
+<script th:src="@{/lib/user/home/rs-plugin/rs.home.js}"></script>
+
+<!-- plugins js -->
+<script th:src="@{/js/user/home/plugins.js}"></script>
+
+<!-- main js -->
+<script th:src="@{/js/user/home/main.js}"></script>
+
+</body>
+</html>

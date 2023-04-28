@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="header">
+    <!-- header-top-area start -->
+    <div class="header-top-area hidden-xs">
+        <div class="container">
+            <div class="row">
+                <!-- header-top-left start -->
+                <div class="col-lg-6 col-md-6 col-sm-7">
+                    <div class="header-top-left">
+                        <div class="top-message">欢迎访问Ayuan超市</div>
+                        <div class="phone-number"> 平台联系电话: <span>123 456  789</span></div>
+                    </div>
+                </div>
+                <!-- header-top-left end -->
+                <!-- header-top-right start -->
+                <div class="col-lg-6 col-md-6 col-sm-5">
+                    <div class="header-top-right">
+                        <div class="lang-select">
+                            <ul>
+                                <li>
+                                    <a th:href="@{/user/login}" th:if="${session.user} == null"><img
+                                            alt="" style="border-radius: 100%" th:src="@{/data/header/user/default.jpg}"
+                                            width="40"/></a>
+                                    <a th:href="@{/user/info}" th:if="${session.user} != null"><img
+                                            alt="" style="border-radius: 100%" th:src="@{${session.user.getHeader()}}"
+                                            width="40"/></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="top-menu">
+                            <ul>
+                                <li><a th:href="@{/user/info}">我的账户</a></li>
+                                <li><a th:href="@{/user/notice}">系统消息</a></li>
+                                <li><a th:href="@{/user/order}">购买记录</a></li>
+                                <li><a th:href="@{/user/cart}">购物车</a></li>
+                                <li>
+                                    <a th:href="@{/user/login}" th:if="${session.user} == null">点击登陆</a>
+                                    <a onclick="if (confirm('确认退出登录？')==false)return false; " th:href="@{/user/logout}"
+                                       th:if="${session.user} != null">
+                                        退出登录
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- header-top-right end -->
+            </div>
+        </div>
+    </div>
+    <!-- header-top-area end -->
+    <!-- header-mid-area start -->
+    <div class="header-mid-area">
+        <div class="container">
+            <div class="row">
+                <!-- logo start -->
+                <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+                    <div class="logo">
+                        <a th:href="@{/}"><img alt="" th:src="@{/image/user/home/logo/logo.png}"/></a>
+                    </div>
+                </div>
+                <!-- logo end -->
+                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                    <!-- cart-total start -->
+                    <div class="cart-total">
+                        <ul>
+                            <li><a th:href="@{/user/cart}"><span class="cart-icon"><i
+                                    class="fa fa-shopping-cart"></i></span> <span class="cart-no">我的购物车</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- cart-total end -->
+                    <!-- header-search start -->
+                    <div class="header-search">
+                        <form th:action="@{/user/search}">
+                            <input name="keyword" placeholder="搜索商品..." type="text"/>
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <!-- header-search end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header-mid-area end -->
+    <!-- mainmenu-area start -->
+    <div class="mainmenu-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="mainmenu">
+                        <nav>
+                            <ul>
+                                <li><a th:href="@{/}">商城主页</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- mobile-menu-area end -->
+</header>
+
+<div class="brand-area pad-60" th:fragment="brand">
+    <div class="container">
+        <!-- section-heading start -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h1>Ayuan超市</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/><br/><br/>
+</div>
+
+<footer th:fragment="footer">
+    <!-- footer-top-area start -->
+    <div class="footer-top-area">
+        <div class="container">
+            <div class="row">
+                <!-- footer-widget start -->
+                <div class="col-lg-3 col-md-3 hidden-sm">
+                    <div class="footer-widget">
+                        <h3>Our services</h3>
+                        <ul class="footer-menu">
+                            <li><a>Shipping & Returns</a></li>
+                            <li><a>Secure Shopping</a></li>
+                            <li><a>International Shipping</a></li>
+                            <li><a>Affiliates</a></li>
+                            <li><a>Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- footer-widget end -->
+                <!-- footer-widget start -->
+                <div class="col-lg-3 col-md-3 col-sm-4">
+                    <div class="footer-widget">
+                        <h3>Our services</h3>
+                        <ul class="footer-menu">
+                            <li><a>Shipping & Returns</a></li>
+                            <li><a>Secure Shopping</a></li>
+                            <li><a>International Shipping</a></li>
+                            <li><a>Affiliates</a></li>
+                            <li><a>Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- footer-widget end -->
+                <!-- footer-widget start -->
+                <div class="col-lg-3 col-md-3 col-sm-4">
+                    <div class="footer-widget">
+                        <h3>CONTACT US</h3>
+                        <ul class="footer-contact">
+                            <li>
+                                <i class="fa fa-map-marker"> </i>
+                                Addresss: China-Guangzhou
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope"> </i>
+                                Email: easyarchayuan@126.com
+                            </li>
+                            <li>
+                                <i class="fa fa-phone"> </i>
+                                Phone: +123 456 789
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- footer-widget end -->
+            </div>
+        </div>
+    </div>
+    <!-- footer-top-area end -->
+    <!-- footer-bottom-area start -->
+    <div class="footer-bottom-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="payment-img">
+                        <img alt="" th:src="@{/image/user/home/payment.png}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer-bottom-area end -->
+</footer>
+
+<script th:fragment="alertMsg" th:inline="javascript">
+
+    function loading() {
+        var img = document.getElementById("loading");
+        img.style.display = "";
+    }
+
+    window.onload = function () {
+        if ("[[${param.msg}]]" != "") {
+            alert("[[${param.msg}]]");
+
+            // 去除msg参数
+
+            var url = window.location.href;    //页面url
+            var urlParam = window.location.search.substr(1);   //页面参数
+            var beforeUrl = url.substr(0, url.indexOf("?"));   //页面主地址（参数之前地址）
+            var nextUrl = "";
+
+            var arr = new Array();
+            if (urlParam != "") {
+                var urlParamArr = urlParam.split("&"); //将参数按照&符分成数组
+                for (var i = 0; i < urlParamArr.length; i++) {
+                    var paramArr = urlParamArr[i].split("="); //将参数键，值拆开
+                    //如果键雨要删除的不一致，则加入到参数中
+                    if (paramArr[0] != "msg") {
+                        arr.push(urlParamArr[i]);
+                    }
+                }
+            }
+            if (arr.length > 0) {
+                nextUrl = "?" + arr.join("&");
+            }
+            url = beforeUrl + nextUrl;
+            window.location.href = url;
+        }
+    };
+</script>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="no-referrer" name="referrer"/>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>订单列表</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link media="screen,projection" rel="stylesheet"
+          th:href="@{/lib/admin/home/assets/materialize/css/materialize.min.css}"/>
+    <!-- Bootstrap Styles-->
+    <link rel="stylesheet" th:href="@{/lib/admin/home/assets/css/bootstrap.css}"/>
+    <!-- FontAwesome Styles-->
+    <link rel="stylesheet" th:href="@{/lib/admin/home/assets/css/font-awesome.css}"/>
+    <!-- Morris Chart Styles-->
+    <link rel="stylesheet" th:href="@{/lib/admin/home/assets/js/morris/morris-0.4.3.min.css}"/>
+    <!-- Custom Styles-->
+    <link rel="stylesheet" th:href="@{/lib/admin/home/assets/css/custom-styles.css}"/>
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" th:href="@{/lib/admin/home/assets/js/Lightweight-Chart/cssCharts.css}">
+    <style th:include="admin/common/model::input"></style>
+    <style>
+        form {
+            display: inline;
+        }
+
+        h4 {
+            display: inline;
+        }
+
+        table tr {
+            border: 1px solid lightgrey;
+        }
+
+        table td {
+            background: white;
+            color: black;
+            height: 60px;
+            text-align: center;
+        }
+
+        table th {
+            background: orangered;
+            color: whitesmoke;
+            height: 36px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="wrapper">
+    <div th:include="admin/common/model::nav"></div>
+
+    <div id="page-wrapper">
+        <div class="header">
+            <ol class="breadcrumb"></ol>
+        </div>
+        <select onchange="updateFlag(this.value)" style="display: inline;width: 100px;position: relative;left: 2.5%;">
+            <option selected th:if="${flag==2}" value="2">全部订单</option>
+            <option th:if="${flag!=2}" value="2">全部订单</option>
+            <option selected th:if="${flag==1}" value="1">已支付</option>
+            <option th:if="${flag!=1}" value="1">已支付</option>
+            <option selected th:if="${flag==0}" value="0">未支付</option>
+            <option th:if="${flag!=0}" value="0">未支付</option>
+        </select>
+        <form method="post" style="position: relative;left: 32px;display: inline" th:action="@{/admin/search-order}">
+            <input id="order" name="order" placeholder="通过订单号查找..."
+                   style="display: inline;width: 200px;background: white;height: 24px">
+            <input onclick="if (document.getElementById('order').value==''){alert('请输入订单号');return false;} " style="height: 34px; border: 0; border-radius: 5px" type="submit"
+                   value="查找">
+        </form>
+        <h3 style="color:grey;position:absolute;left: 50%;top: 25%;transform: translate(-50%,-50%)"
+            th:if="${orderList.size()==0}">
+            这里还没有任何订单信息！！
+        </h3>
+        <form method="get" th:action="@{/admin/order}">
+            <table style="position:relative;left:50%;width: 95%;transform: translate(-50%,0)"
+                   th:if="${orderList.size()!=0}">
+                <tr>
+                    <th>订单编号</th>
+                    <th>总额</th>
+                    <th>创建时间</th>
+                    <th>订单状态</th>
+                    <th>支付方式</th>
+                    <th>支付时间</th>
+                    <th>商品数量</th>
+                    <th>商品ID</th>
+                    <th>商户ID</th>
+                    <th>会员ID</th>
+                    <th>收件人</th>
+                    <th>联系方式</th>
+                </tr>
+                <tr th:each="order : ${orderList}">
+                    <td th:text="${order.getOrderId()}"></td>
+                    <td th:text="'￥'+${order.getOrderPrice()}"></td>
+                    <td th:text="${#dates.format(order.getCreateTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
+
+                    <td th:if="${order.getOrderState()==1}">已支付</td>
+                    <td th:if="${order.getOrderState()!=1}">未支付</td>
+
+                    <td th:if="${order.getPayWay()==1}">支付宝</td>
+                    <td th:if="${order.getPayWay()==0}">微信支付</td>
+
+                    <td th:if="${order.getOrderState()==1}"
+                        th:text="${#dates.format(order.getPayTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:if="${order.getOrderState()!=1}">未支付</td>
+
+                    <td th:text="${order.getGoodsNum()}"></td>
+                    <td th:text="${order.getGoodsId()}"></td>
+                    <td th:text="${order.getOrderMerchant()}"></td>
+                    <td th:text="${order.getOrderUser()}"></td>
+                    <td th:text="${order.getUserName()}"></td>
+                    <td th:text="${order.getUserPhone()}"></td>
+                </tr>
+                <tr style="height: 100px">
+                    <td colspan="12">
+                        <input onclick="delPage()" style="border: 0; border-radius: 5px" type="submit" value="上一页">
+                        [[${page}]]/[[${allPage}]]
+                        <input onclick="addPage()" style="border: 0; border-radius: 5px" type="submit" value="下一页">
+                    </td>
+                </tr>
+            </table>
+            <input hidden id="flag" name="flag" th:value="${flag}" type="number">
+            <input hidden id="page" name="page" th:value="${page}" type="number">
+        </form>
+        <br/><br/><br/>
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<script th:inline="javascript">
+    var page = document.getElementById('page');
+    var flag = document.getElementById('flag');
+
+    function addPage() {
+        if (page.value < [[${allPage}]]) {
+            page.value = page.value - 1 + 2;
+        } else {
+            alert("当前是最后一页");
+        }
+    }
+
+    function delPage() {
+        if (page.value > 1) {
+            page.value = page.value - 1;
+        } else {
+            alert("当前是第一页");
+        }
+    }
+
+    function updateFlag(temp) {
+        flag.value = temp;
+        window.location.href = "/admin/order?flag=" + temp;
+    }
+</script>
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script th:src="@{/lib/admin/home/assets/js/jquery-1.10.2.js}"></script>
+
+<!-- Bootstrap Js -->
+<script th:src="@{/lib/admin/home/assets/js/bootstrap.min.js}"></script>
+
+<script th:src="@{/lib/admin/home/assets/materialize/js/materialize.min.js}"></script>
+
+<!-- Metis Menu Js -->
+<script th:src="@{/lib/admin/home/assets/js/jquery.metisMenu.js}"></script>
+<!-- Morris Chart Js -->
+<script th:src="@{/lib/admin/home/assets/js/morris/raphael-2.1.0.min.js}"></script>
+<script th:src="@{/lib/admin/home/assets/js/morris/morris.js}"></script>
+
+
+<script th:src="@{/lib/admin/home/assets/js/easypiechart.js}"></script>
+<script th:src="@{/lib/admin/home/assets/js/easypiechart-data.js}"></script>
+
+<script th:src="@{/lib/admin/home/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
+
+<!-- Custom Js -->
+<script th:src="@{/lib/admin/home/assets/js/custom-scripts.js}"></script>
+
+<script th:src="@{/js/admin/jquery.min.js}"></script>
+<script>
+    function go() {
+        $('html,body').animate({scrollTop: 750});
+    }
+</script>
+<script th:include="admin/common/model::alertMsg"></script>
+</body>
+
+</html>

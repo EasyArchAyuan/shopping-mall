@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="no-referrer" name="referrer"/>
+    <meta charset="UTF-8">
+    <title>Ayuan超市后台登陆</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" rel="stylesheet">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet'>
+
+    <link rel="stylesheet" th:href="@{/css/admin/style.css}">
+</head>
+<body>
+
+<div class="container">
+    <div class="info">
+        <h1>Ayuan超市后台登陆</h1>
+    </div>
+</div>
+<div class="form">
+    <div class="thumbnail"><img th:src="@{/css/admin/hat.svg}"/></div>
+    <form class="register-form">
+        <input id="name" name="name" placeholder="昵称" type="text"/>
+        <input id="email" name="email" placeholder="邮箱" type="text"/>
+        <input id="password" name="password" placeholder="密码" type="password"/>
+        <div id="button"
+             onclick="button();" style="text-align: center;width: 100%;height: 50px;background: #EF3B3A;color: white;border-radius: 5px">
+            <br/>注册
+        </div>
+        <p class="message">已注册账号? <a href="#">登录</a></p>
+    </form>
+    <form class="login-form" method="post" th:action="@{/admin/do-login}">
+        <input name="email" placeholder="邮箱" type="text"/>
+        <input name="password" placeholder="密码" type="password"/>
+        <button>登录</button>
+        <p class="message">还未有账号? <a href="#">创建用户</a></p>
+    </form>
+</div>
+<script th:src="@{/js/admin/jquery.min.js}"></script>
+<script>
+    if (sessionStorage.getItem("admin_sign_num") > 0) {
+        sessionStorage.setItem("admin_sign_num", sessionStorage.getItem("admin_sign_num"));
+        change();
+    }
+
+    function button() {
+        var email = document.getElementById("email").value;
+        var name = document.getElementById("name").value;
+        var password = document.getElementById("password").value;
+
+        if (email == "") {
+            alert("邮箱不能为空！！");
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/admin/sign-up?email=" + email + "&name=" + name + "&password=" + password,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                alert(msg);
+            },
+            error: function () {
+                alert("网络出现了问题！！")
+            }
+        });
+        sessionStorage.setItem("admin_sign_num", 60);
+        change();
+    }
+
+    function change() {
+        var button = document.getElementById("button");
+        button.style.background = "grey";
+        button.disabled = true;
+        var time = setInterval(function () {
+            var num = sessionStorage.getItem("admin_sign_num");
+            if (num <= 0) {
+                button.style.background = "#EF3B3A";
+                button.disabled = false;
+                button.innerHTML = "<br/>重新发送验证码";
+                clearInterval(time);
+            } else {
+                button.innerHTML = "<br/>重新发送验证码（" + num + "）";
+            }
+            sessionStorage.setItem("admin_sign_num", --num);
+        }, 1000);
+    }
+</script>
+<script>
+    // 发送验证码
+    function sendCode() {
+        $(document).ready(function () {
+            //请求参数对象
+            var email = document.getElementById("email").value;
+
+            //执行Ajax请求
+            $.ajax({
+                url: "/admin/sign/send/code?email=" + email,
+
+                success: function (result) {
+                    if (result) {
+                        alert("验证码已成功发送至您的邮箱，请注意查收");
+                    } else {
+                        alert("邮箱格式不正确");
+                    }
+                },
+                error: function (result) {
+                    alert("验证码发送失败");
+                }
+            });
+        });
+    }
+</script>
+<script th:src="@{/js/admin/index.js}"></script>
+<script th:include="admin/common/model::alertMsg"></script>
+</body>
+</html>

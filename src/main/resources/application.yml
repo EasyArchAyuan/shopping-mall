@@ -1,0 +1,72 @@
+site-url: 127.0.0.1
+call-back-site-url: 123.117.176.252
+server:
+  port: 8866
+  tomcat:
+    uri-encoding: utf-8
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+  error:
+    include-exception: true
+spring:
+  jmx:
+    enabled: false
+  application:
+    name: shopping
+  datasource:
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${site-url}:3306/shopping?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useUnicode=true&useSSL=false
+  data:
+    elasticsearch:
+      cluster-nodes: ${site-url}:9200
+      cluster-name: elasticsearch
+      repositories:
+        enabled: true
+  rabbitmq:
+    addresses: ${site-url}:5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 15000
+    listener:
+      simple:
+        concurrency: 5
+        max-concurrency: 10
+        acknowledge-mode: manual
+  mvc:
+    static-path-pattern: /*/**
+  mail:
+    host: smtp.126.com
+    username: easyarchayuan@126.com
+    password: BDNUCNFSNVUDSVNT
+    from: easyarchayuan@126.com
+    default-encoding: utf-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    port: 25
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    cache: false
+    suffix: .html
+    mode: HTML5
+  redis:
+    database: 0
+    port: 6379
+    host: ${site-url}
+mybatis:
+  mapper-locations: classpath:/static/mapping/*Mapping.xml
+  type-aliases-package: com.example.shopping.common.entity
+wechat:
+  appId: wx8397f8696b538317
+  mchId: 1473426802
+  key: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
