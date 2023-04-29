@@ -75,11 +75,9 @@ CREATE TABLE `sys_admin`
 -- Records of sys_admin
 -- ----------------------------
 INSERT INTO `sys_admin`
-VALUES (1, 'Bosen', 'b9e1115fb6e950878b08e2433b53ed47', 'bosen_once@163.com', 1);
+VALUES (1, 'Ayuan', 'e10adc3949ba59abbe56e057f20f883e', 'easyarchayuan@126.com', 1);
 INSERT INTO `sys_admin`
-VALUES (2, '2390025289@qq.com', 'e10adc3949ba59abbe56e057f20f883e', '2390025289@qq.com', 1);
-INSERT INTO `sys_admin`
-VALUES (3, 'guest', 'e10adc3949ba59abbe56e057f20f883e', 'guest@qq.com', 1);
+VALUES (2, 'guest', 'e10adc3949ba59abbe56e057f20f883e', 'guest@qq.com', 1);
 
 -- ----------------------------
 -- Table structure for sys_admin_role
@@ -877,7 +875,7 @@ CREATE TABLE `sys_user`
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user`
-VALUES (1, 'Bosen', 'b9e1115fb6e950878b08e2433b53ed47', 'bosen_once@163.com', 1, '/data/header/user/1.jpg');
+VALUES (1, 'Ayuan', 'e10adc3949ba59abbe56e057f20f883e', 'easyarchayuan@126.com', 1, '/data/header/user/1.jpg');
 INSERT INTO `sys_user`
 VALUES (2, 'guest', 'e10adc3949ba59abbe56e057f20f883e', 'guest@qq.com', 1, '/data/header/user/default.jpg');
 
