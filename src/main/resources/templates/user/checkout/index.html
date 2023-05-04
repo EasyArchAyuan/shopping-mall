@@ -226,6 +226,16 @@
 											</span></strong>
                                     </td>
                                 </tr>
+                                <tr class="balance-total">
+                                    <th style="text-align: left">
+                                        <label>会员卡余额</label>
+                                    </th>
+                                    <td></td>
+                                    <td style="text-align: right"><strong><span class="amount">
+												￥[[${session.user.getBalance()}]]
+											</span></strong>
+                                    </td>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -262,11 +272,13 @@
                                 var address = document.getElementById('address');
                                 var name = document.getElementById('name');
                                 var phone = document.getElementById('phone');
+                                var phone = document.getElementById('phone');
 
                                 if (address.value=='' || name.value=='' || phone.value=='') {
-                                alert('必填信息不能为为空！');return false;
-                                }else{ali();return false;}" style="background: deepskyblue" type="submit"
-                                       value="支付宝支付"/>
+                                    alert('必填信息不能为为空！');return false;
+                                }else{
+                                    balance();
+                                }" style="background: lightpink" type="submit" value="会员卡支付"/>
                             </div>
                         </div>
                     </div>
@@ -308,6 +320,7 @@
         document.getElementById("prices").value = prices;
         document.getElementById("merchants").value = merchants;
     }
+
 </script>
 <!-- footer start -->
 <footer th:include="user/common/model::footer"></footer>
@@ -322,15 +335,13 @@
         document.pay.submit();
     }
 
-    function ali() {
-        /*
-                var ali = document.getElementById("way");
-                way.value = 1;
-                document.pay.action = "pay/ali";
-                document.pay.submit();
-        */
-        alert("暂不支持支付宝支付")
+     function balance() {
+        var way = document.getElementById("way");
+        way.value = 2;
+        document.pay.action = "pay/balance";
+        document.pay.submit();
     }
+
 </script>
 <!-- jquery js -->
 <script th:src="@{/js/user/home/vendor/jquery-1.12.0.min.js}"></script>

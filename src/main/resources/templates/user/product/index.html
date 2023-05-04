@@ -156,15 +156,14 @@
                         <label>商品库存</label>: <strong>&nbsp;&nbsp;[[${goods.getStock()}]]</strong>
                     </div>
                     <form id="buyOrCart" method="post">
-                        <div class="quantity" style="display: inline">
-                            <input id="num" min="1" name="num" onclick="updateNum()" type="number" value="1"/>
-                            <input hidden id="ids" name="ids" th:value="${goods.getId()}+':1:0'" type="text">
-                            <input hidden id="id" name="id" th:value="${goods.getId()}" type="text">
-                            <button onclick="addCart()" type="submit">加入购物车</button>
-                        </div>
                         <div class="add-to-wishlist" style="display: inline">
                             <div class="quantity" style="display: inline">
-                                <button id="buy" onmouseleave="document.getElementById('buy').style.background='#ec4445';"
+                                <input id="num" min="1" name="num" onclick="updateNum()" type="number" value="1"/>
+                                <input hidden id="ids" name="ids" th:value="${goods.getId()}+':1:0'" type="text">
+                                <input hidden id="id" name="id" th:value="${goods.getId()}" type="text">
+                                <button onclick="addCart()" type="submit">加入购物车</button>
+                                <button id="buy"
+                                        onmouseleave="document.getElementById('buy').style.background='#ec4445';"
                                         onmouseover="document.getElementById('buy').style.background='gold';"
                                         style="background: #ec4445">
                                     <a onclick="buy()" style="color: white">
@@ -193,7 +192,7 @@
                                     alert("此商品已下架！");
                                 } else if ([[${goods.getStock()}]] < 1 || [[${goods.getStock()}]] < num.value) {
                                     alert("商品库存不足！");
-                                } else {
+                                }else {
                                     buyOrCart.action = '/user/add-cart';
                                     buyOrCart.submit();
                                 }
@@ -204,6 +203,11 @@
                                 var ids = document.getElementById("ids");
                                 ids.value = [[${goods.getId()}]] + ':' + num.value + ':0';
                             }
+
+
+
+
+
                         </script>
                     </form>
                     <div class="share_buttons">
@@ -303,12 +307,18 @@
                                                             alert("当前是最后一页！");
                                                         }
                                                     }
+
+
+
+
+
                                                 </script>
                                             </form>
 
                                             <form method="post" th:action="@{/user/product/add-comment}">
                                                 <textarea cols="30" id="product-message"
-                                                          name="context" placeholder="在此输入您想对此商品的评论..." rows="10"
+                                                          name="context" placeholder="在此输入您想对此商品的评论..."
+                                                          rows="10"
                                                           style="border: 1px solid grey"></textarea>
                                                 <input hidden="hidden" name="goods" th:value="${goods.getId()}"
                                                        type="number">

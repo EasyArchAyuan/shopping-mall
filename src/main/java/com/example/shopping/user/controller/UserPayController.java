@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,26 @@ public class UserPayController {
         String res = wxPayService.addOrder(nums, orderMark, users, merchants, prices, notes, goods, address, name, phone, code, 0, carts);
         if (!res.equals("-1") && !res.equals("0") && !res.equals("")) {
             modelAndView.addObject("orderMark", orderMark);
+            modelAndView.setViewName("redirect:/user/wxpay/index?mark=" + orderMark);
+        }
+        return modelAndView;
+    }
+
+    @ApiOperation("会员卡支付")
+    @PostMapping("/user/pay/balance")
+    public ModelAndView balance(ModelAndView modelAndView, String nums, String users, String merchants, String goods, String prices,
+                                String notes, String address, String name, String phone, String code, String carts) {
+        // 生成orderMark
+        String orderMark = wxPayService.getOrderId();
+        // 添加订单
+        String res = wxPayService.addOrder(nums, orderMark, users, merchants, prices, notes, goods, address, name, phone, code, 2, carts);
+        if (res.equals("-2")) {
+            modelAndView.addObject("msg", "会员卡余额不足！");
+            return modelAndView;
+        }
+        if (!res.equals("-1") && !res.equals("0") && !res.equals("")) {
+            modelAndView.addObject("orderMark", orderMark);
+//            modelAndView.setViewName("redirect:/user/pay/balance?mark = " + orderMapper);
             modelAndView.setViewName("redirect:/user/wxpay/index?mark=" + orderMark);
         }
         return modelAndView;
@@ -70,10 +91,26 @@ public class UserPayController {
     @ApiOperation("订单未支付，重新显示二维码给用户支付")
     @GetMapping("/user/wxpay/index")
     public ModelAndView wxNotify(ModelAndView modelAndView, String mark) {
-        String codeUrl = orderMapper.findByOrderMark(mark).get(0).getPayCodeUrl();
-        modelAndView.addObject("codeUrl", codeUrl);
+        SysOrder sysOrder = orderMapper.findByOrderMark(mark).get(0);
+        if (StringUtils.isEmpty(sysOrder.getPayCodeUrl())) {
+            String url = wxPayService.wxCodeUrl(mark, String.valueOf(sysOrder.getOrderPrice()));
+            modelAndView.addObject("codeUrl", url);
+        } else {
+            modelAndView.addObject("codeUrl", sysOrder.getPayCodeUrl());
+        }
         modelAndView.addObject("orderMark", mark);
+        modelAndView.addObject("way", sysOrder.getPayWay());
         modelAndView.setViewName("user/pay/wx");
+        return modelAndView;
+    }
+
+    @ApiOperation("订单未支付，重新拉取会员卡给用户支付")
+    @GetMapping("/user/balance/index")
+    public ModelAndView balanceNotify(ModelAndView modelAndView, String mark) {
+        SysOrder sysOrder = orderMapper.findByOrderMark(mark).get(0);
+        modelAndView.addObject("orderMark", mark);
+        modelAndView.addObject("way", sysOrder.getPayWay());
+        modelAndView.setViewName("user/pay/balance");
         return modelAndView;
     }
 

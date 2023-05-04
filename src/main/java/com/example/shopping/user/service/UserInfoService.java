@@ -78,4 +78,10 @@ public class UserInfoService {
         }
         return -1;
     }
+
+    public SysUser getInfo(HttpServletRequest request, int id) {
+        SysUser sysUser = sysUserMapper.selectById(id);
+        request.getSession().setAttribute("user", sysUser);
+        return sysUser;
+    }
 }

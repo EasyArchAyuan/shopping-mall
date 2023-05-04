@@ -56,6 +56,9 @@ public class UserCartController {
             if (result == 2) {
                 modelAndView.addObject("msg", "您在此前已将此商品添加至购物车");
             }
+            if (result == 3) {
+                modelAndView.addObject("msg", "充值卡禁止添加至购物车");
+            }
         }
         modelAndView.setViewName("redirect:/user/product?id=" + id);
         return modelAndView;

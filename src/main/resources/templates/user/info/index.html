@@ -128,14 +128,21 @@
                             </tr>
                             <tr>
                                 <td>
-                                    名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：
+                                    名称：
                                     <input name="username" style="width: 300px" th:value="${session.user.getUsername()}"
                                            type="text"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
+                                    会员余额：
+                                    <input name="balance" style="width: 300px" th:value="${session.user.getBalance()}"
+                                           type="text" readonly="readonly"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    邮箱：
                                     <input name="email" style="width: 300px" th:value="${session.user.getEmail()}"
                                            type="text"/>
                                 </td>
@@ -164,7 +171,7 @@
                                 <td>
                                     <input onclick="logout();return false;" style="width: 100px;background: orangered;color: white" type="submit"
                                            value="退出登录">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                                     <input onclick="submitForm()" style="width: 100px;background: deepskyblue;color: white" type="submit"
                                            value="修改信息">
                                     <script>

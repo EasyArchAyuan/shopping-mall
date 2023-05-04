@@ -9,6 +9,7 @@
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="mark" jdbcType="INTEGER" property="mark"/>
         <result column="header" jdbcType="VARCHAR" property="header"/>
+        <result column="balance" jdbcType="DECIMAL" property="balance"/>
     </resultMap>
 
     <select id="selectById" resultType="com.example.shopping.common.entity.SysUser">
@@ -24,10 +25,10 @@
     </select>
 
     <select id="getUserInfo" resultType="com.example.shopping.common.entity.SysUser">
-        select id, email, username, mark, header
+        select id, email, username, mark, header, balance
         from sys_user
         where email = #{email}
-          and mark != 0;
+        and mark != 0;
     </select>
 
     <select id="findAll" resultType="com.example.shopping.common.entity.SysUser">
@@ -55,22 +56,28 @@
     <update id="update">
         update sys_user
         set username = #{username},
-            password = #{password}
+        password = #{password}
         where email = #{email};
     </update>
 
     <update id="updateById">
         update sys_user
         set username = #{username},
-            password = #{password},
-            email    = #{email},
-            header   = #{header}
+        password = #{password},
+        email = #{email},
+        header = #{header}
         where id
-                  = #{id};
+        = #{id};
     </update>
 
     <insert id="insert">
         insert into sys_user(id, username, password, email, mark, header)
         values (default, #{username}, #{password}, #{email}, #{mark}, default);
     </insert>
+
+    <update id="updateBalanceById">
+        update sys_user
+        set balance = #{balance}
+        where id = #{id};
+    </update>
 </mapper>

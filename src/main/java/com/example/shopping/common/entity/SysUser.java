@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 /**
  * <p>数据库表的映射类</p>
  *
@@ -20,4 +22,5 @@ public class SysUser {
     private String email;
     private int mark;
     private String header;
+    private BigDecimal balance;
 }

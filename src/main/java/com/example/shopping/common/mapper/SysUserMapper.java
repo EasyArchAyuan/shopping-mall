@@ -4,6 +4,7 @@ import com.example.shopping.common.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -30,4 +31,6 @@ public interface SysUserMapper {
     int update(String username, String password, String email);
 
     int updateById(String username, String password, String header, String email, int id);
+
+    int updateBalanceById(BigDecimal balance, int id);
 }

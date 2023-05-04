@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="no-referrer" name="referrer"/>
-    <title>微信支付页面</title>
+    <title>会员卡支付页面</title>
     <style>
         body {
             background-repeat: no-repeat;
@@ -15,8 +15,7 @@
 </head>
 <body th:align="center" th:background="@{/image/pay/pay.jpg}">
 <div style="position: absolute;left: 50%;top: 45%;transform: translate(-50%,-50%)">
-    <h3>请使用微信扫描以下二维码完成支付</h3>
-    <img th:src="@{${codeUrl}}" width="300px"/>
+    <h3>请等待后台扣款完成...</h3>
 </div>
 <script th:src="@{/js/user/index.js}"></script>
 <script th:inline="javascript">
@@ -37,6 +36,7 @@
             })
         }, 500);
     };
+
 </script>
 </body>
 </html>

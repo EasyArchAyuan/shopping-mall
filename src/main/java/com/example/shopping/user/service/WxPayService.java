@@ -2,10 +2,8 @@ package com.example.shopping.user.service;
 
 import com.example.shopping.common.entity.SysMt;
 import com.example.shopping.common.entity.SysOrder;
-import com.example.shopping.common.mapper.SysCartMapper;
-import com.example.shopping.common.mapper.SysGoodsMapper;
-import com.example.shopping.common.mapper.SysMtMapper;
-import com.example.shopping.common.mapper.SysOrderMapper;
+import com.example.shopping.common.entity.SysUser;
+import com.example.shopping.common.mapper.*;
 import com.example.shopping.common.utils.IsEmptyUtil;
 import com.example.shopping.common.utils.QRCodeUtil;
 import com.example.shopping.common.utils.StringUtil;
@@ -48,6 +46,8 @@ public class WxPayService {
     SysMtMapper merchantMapper;
     @Autowired
     SysCartMapper cartMapper;
+    @Autowired
+    SysUserMapper userMapper;
     @Value("${call-back-site-url}")
     String url;
     MyWXPayConfig config = new MyWXPayConfig();
@@ -97,17 +97,33 @@ public class WxPayService {
                         Integer.parseInt(merchantsArr[i]), new BigDecimal(dfPrice.format(Double.valueOf(pricesArr[i]))),
                         Integer.parseInt(goodsArr[i]), notes, address, name, phone, code, way, cartArr[i], merchant.getRatio());
             }
-
             // 将商品库存做相应的减少
             int delStock = goodsMapper.delStock(Integer.parseInt(goodsArr[i]), Integer.parseInt(numArr[i]));
-
             // 库存检查，库存少于零时回滚
             if (sql != 1 || delStock != 1 || goodsMapper.findById(Integer.parseInt(goodsArr[i])).getStock() < 0) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             }
         }
-        String allPrice = getAllPrice(pricesArr, numArr);
-        return wxCodeUrl(mark, allPrice);
+        //根据支付渠道返回不同东西
+        if (way == 0) {
+            //微信支付
+            return wxCodeUrl(mark, getwxAllPrice(pricesArr, numArr));
+        } else if (way == 2) {
+            //会员卡余额支付
+            SysUser sysUser = userMapper.selectById(Integer.parseInt(userArr[0]));
+            BigDecimal subtract = sysUser.getBalance().subtract(this.getAllPrice(pricesArr, numArr));
+            if (subtract.doubleValue() < 0.00D) {
+                return "-2";
+            }
+            //扣款
+            userMapper.updateBalanceById(subtract, sysUser.getId());
+            //回调后续业务逻辑
+            this.successWxNotify(mark);
+            return "ok";
+        } else {
+            //其他未开通
+            return "-1";
+        }
     }
 
     /**
@@ -118,9 +134,10 @@ public class WxPayService {
     }
 
     /**
-     * <p>总金额运算</p>
+     * <p>微信支付以分为单位，微信总金额运算</p>
      */
-    public String getAllPrice(String[] prices, String[] nums) {
+    public String getwxAllPrice(String[] prices, String[] nums) {
+        //微信支付以分为单位，解决字符串类型乘以100
         DecimalFormat dfPrice = new DecimalFormat("#.00");
         DecimalFormat dfNum = new DecimalFormat("#");
         BigDecimal allPrice = new BigDecimal("0.00");
@@ -131,6 +148,23 @@ public class WxPayService {
             allPrice = allPrice.add(price.multiply(num));
         }
         return allPrice.multiply(new BigDecimal(100)).stripTrailingZeros().toPlainString();
+    }
+
+    /**
+     * <p>总金额运算</p>
+     */
+    public BigDecimal getAllPrice(String[] prices, String[] nums) {
+        //微信支付以分为单位，解决字符串类型乘以100
+        DecimalFormat dfPrice = new DecimalFormat("#.00");
+        DecimalFormat dfNum = new DecimalFormat("#");
+        BigDecimal allPrice = new BigDecimal("0.00");
+
+        for (int i = 0; i < prices.length; i++) {
+            BigDecimal price = new BigDecimal(dfPrice.format(Double.valueOf(prices[i])));
+            BigDecimal num = new BigDecimal(dfNum.format(Double.valueOf(nums[i])));
+            allPrice = allPrice.add(price.multiply(num));
+        }
+        return allPrice;
     }
 
     /**
@@ -194,12 +228,7 @@ public class WxPayService {
             // 验证签名
             boolean signatureValid = wxPay.isPayResultNotifySignatureValid(notifyMapData);
             if (signatureValid) {
-                // 订单支付成功之后相关业务逻辑...
-                orderMapper.updateState(System.currentTimeMillis(), notifyMapData.get("device_info"));
-                List<SysOrder> orderList = orderMapper.findByOrderMark(notifyMapData.get("device_info"));
-                for (SysOrder order : orderList) {
-                    cartMapper.deleteById(order.getCartId());
-                }
+                this.successWxNotify(notifyMapData.get("device_info"));
                 // 一切正常返回的xml数据
                 returnXmlMessage = setReturnXml(WXPayConstants.SUCCESS, "OK");
             } else {
@@ -254,7 +283,13 @@ public class WxPayService {
         orderMapper.updateState(System.currentTimeMillis(), orderMark);
         List<SysOrder> orderList = orderMapper.findByOrderMark(orderMark);
         for (SysOrder order : orderList) {
+            // 移除购物车内商品
             cartMapper.deleteById(order.getCartId());
+            // 判断商品是否是会员卡充值
+            if (1 == order.getGoodsId()) {
+                SysUser sysUser = userMapper.selectById(order.getOrderUser());
+                userMapper.updateBalanceById(sysUser.getBalance().add(BigDecimal.valueOf(order.getGoodsNum() * 100.00)), order.getOrderUser());
+            }
         }
         // 一切正常返回的xml数据
         return "OK";

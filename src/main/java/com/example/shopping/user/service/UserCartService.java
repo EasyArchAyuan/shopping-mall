@@ -39,6 +39,10 @@ public class UserCartService {
         // 获取用户信息
         SysUser user = (SysUser) request.getSession().getAttribute("user");
         // 判断用户是否已将此商品添加至购物车
+        if (id == 1) {
+            //会员卡不让添加进购物车
+            return 3;
+        }
         int count = cartMapper.countByUserIdAndGoodsId(user.getId(), id);
         if (count == 0) {
             int sql = cartMapper.insert(user.getId(), id, num);
@@ -72,7 +76,7 @@ public class UserCartService {
             map.put("goodsStock", String.valueOf(goods.getStock()));
             map.put("goodsState", String.valueOf(goods.getState()));
             map.put("goodsMerchant", merchant.getName());
-
+            map.put("merchantId", String.valueOf(goods.getMerchant()));
             list.add(map);
         }
         return list;

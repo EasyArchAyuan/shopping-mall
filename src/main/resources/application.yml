@@ -1,5 +1,5 @@
 site-url: 127.0.0.1
-call-back-site-url: 123.117.176.252
+call-back-site-url: 127.0.0.1
 server:
   port: 8866
   tomcat:
@@ -17,7 +17,7 @@ spring:
     name: shopping
   datasource:
     username: root
-    password: 123456
+    password: test123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${site-url}:3306/shopping?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useUnicode=true&useSSL=false
   data:

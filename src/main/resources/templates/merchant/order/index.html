@@ -139,8 +139,9 @@
                         <td th:if="${order.getOrderState()==1}">已支付</td>
                         <td th:if="${order.getOrderState()!=1}">未支付</td>
 
-                        <td th:if="${order.getPayWay()==1}">支付宝</td>
+<!--                        <td th:if="${order.getPayWay()==1}">支付宝</td>-->
                         <td th:if="${order.getPayWay()==0}">微信支付</td>
+                        <td th:if="${order.getPayWay()==2}">会员卡支付</td>
 
                         <td th:if="${order.getOrderState()==1}"
                             th:text="${#dates.format(order.getPayTime(),'yyyy-MM-dd HH:mm:ss')}"></td>

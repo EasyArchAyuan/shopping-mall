@@ -31,6 +31,7 @@ public class UserInfoController {
     @GetMapping("/user/info")
     public ModelAndView index(ModelAndView modelAndView, HttpServletRequest request) {
         SysUser user = (SysUser) request.getSession().getAttribute("user");
+        user = userInfoService.getInfo(request,user.getId());
         modelAndView.addObject("user", user);
         modelAndView.setViewName("user/info/index");
         return modelAndView;
