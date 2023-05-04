@@ -33,7 +33,7 @@ public class MerchantUiController {
     @GetMapping("/merchant/ui")
     public ModelAndView index(ModelAndView modelAndView, HttpServletRequest request) {
         modelAndView.setViewName("merchant/ui/index");
-        // 商户用于商城首页宣传的海报图片路径
+        // 商户用于超市首页宣传的海报图片路径
         SysMtUi homeImg = uiService.getHomeImg(400, 320, request.getSession());
         modelAndView.addObject("homeImg", homeImg);
         SysMtUi lowImg = uiService.getHomeImg(600, 310, request.getSession());
@@ -61,7 +61,7 @@ public class MerchantUiController {
         return modelAndView;
     }
 
-    @ApiOperation("修改或添加商户在商城主页的宣传海报")
+    @ApiOperation("修改或添加商户在超市主页的宣传海报")
     @PostMapping("/merchant/update-home-img")
     public ModelAndView updateHomeImg(ModelAndView modelAndView, HttpServletRequest request, MultipartFile img, RedirectAttributes redirectAttributes, int width, int height) {
 

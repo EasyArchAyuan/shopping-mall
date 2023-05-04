@@ -39,7 +39,7 @@ public class MerchantUiService {
     }
 
     /**
-     * <p>获取商户用于商城首页宣传的海报图片对象</p>
+     * <p>获取商户用于超市首页宣传的海报图片对象</p>
      */
     public SysMtUi getHomeImg(int width, int height, HttpSession session) {
         return mtUiMapper.findByMark(width, height, getMtId(session));
@@ -60,7 +60,7 @@ public class MerchantUiService {
     }
 
     /**
-     * <p>商户商城首页的宣传海报</p>
+     * <p>商户超市首页的宣传海报</p>
      */
     public int updateHomeImg(int width, int height, HttpSession session, MultipartFile img, RedirectAttributes redirectAttributes,
                              HttpServletRequest request) {
@@ -93,7 +93,7 @@ public class MerchantUiService {
     }
 
     /**
-     * <p>增加商户商城首页的宣传海报</p>
+     * <p>增加商户超市首页的宣传海报</p>
      */
     public int addHomeImg(String url, int width, int height, int id) {
         return mtUiMapper.insert(url, width, height, id);

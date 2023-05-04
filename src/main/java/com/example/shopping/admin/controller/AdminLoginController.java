@@ -90,7 +90,7 @@ public class AdminLoginController {
             return "两次密码输入不一致";
         }
         if (result == 1) {
-            return "验证邮件已发送，请留意您的邮箱";
+            return "注册成功";
         }
         if (result == -1) {
             return "注册超时，请重试";

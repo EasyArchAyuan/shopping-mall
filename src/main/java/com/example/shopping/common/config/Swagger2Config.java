@@ -18,7 +18,7 @@ public class Swagger2Config {
         String groupName = "2.0.5";
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(new ApiInfoBuilder()
-                        .title("Ayuan超市 API 文档")
+                        .title("家乐超市 API 文档")
                         .contact(new Contact("Bosen", "https://bosen-once.gitee.io", "13416263336@163.com"))
                         .version("2.0.5")
                         .build())

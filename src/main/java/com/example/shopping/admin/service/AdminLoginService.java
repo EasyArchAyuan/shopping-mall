@@ -97,13 +97,14 @@ public class AdminLoginService {
             }
         } else {
             // 添加信息未成功返回超时
-            if (adminMapper.insert(name, password, email, 0) != 1) {
+            if (adminMapper.insert(name, password, email, 1) != 1) {
                 return -1;
             }
         }
-        // 发送注册验证邮件
-        boolean res = mailService.sendHtmlMail(email, "Ayuan超市管理员注册验证", "<a href='http://" + this.url + "/admin/sign-check?email=" + email + "'>点击此链接完成注册验证</a>");
-        return res ? 1 : -1;
+//        // 发送注册验证邮件
+//        boolean res = mailService.sendHtmlMail(email, "家乐超市管理员注册验证", "<a href='http://" + this.url + "/admin/sign-check?email=" + email + "'>点击此链接完成注册验证</a>");
+//        return res ? 1 : -1;
+        return 1;
     }
 
     /**

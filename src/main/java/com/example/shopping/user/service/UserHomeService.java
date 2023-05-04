@@ -43,7 +43,7 @@ public class UserHomeService {
     }
 
     /*
-     * 获取商城网页的宣传海报
+     * 获取超市网页的宣传海报
      */
     public Map<String, SysUi> getImage() {
         Map<String, SysUi> map = new HashMap<>();

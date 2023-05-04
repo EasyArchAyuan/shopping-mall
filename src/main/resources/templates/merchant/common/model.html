@@ -6,7 +6,7 @@
     <!--logo start-->
     <div class="brand">
         <a class="logo" th:href="@{/merchant/home}">
-            Merchant
+            Employee
         </a>
     </div>
     <div class="top-nav clearfix">
@@ -20,7 +20,7 @@
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu extended logout">
-                    <li><a th:href="@{/merchant/ui}"><i class="fa fa-cog"></i>商户设置</a></li>
+                    <li><a th:href="@{/merchant/ui}"><i class="fa fa-cog"></i>员工设置</a></li>
                     <li><a th:href="@{/merchant/logout}"><i class="fa fa-key"></i>退出登录</a></li>
                 </ul>
             </li>
@@ -39,7 +39,7 @@
                 <li>
                     <a class="active" th:href="@{/merchant/home}">
                         <i class="fa fa-dashboard"></i>
-                        <span>商户主页</span>
+                        <span>员工主页</span>
                     </a>
                 </li>
 
@@ -61,16 +61,16 @@
                         <li><a th:href="@{/merchant/goods}">商品管理</a></li>
                     </ul>
                 </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-envelope"></i>
-                        <span>优惠相关</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="javascript:alert('暂未开放此功能');">满减卷</a></li>
-                        <li><a href="javascript:alert('暂未开放此功能');">立减卷</a></li>
-                    </ul>
-                </li>
+<!--                <li class="sub-menu">-->
+<!--                    <a href="javascript:;">-->
+<!--                        <i class="fa fa-envelope"></i>-->
+<!--                        <span>优惠相关</span>-->
+<!--                    </a>-->
+<!--                    <ul class="sub">-->
+<!--                        <li><a href="javascript:alert('暂未开放此功能');">满减卷</a></li>-->
+<!--                        <li><a href="javascript:alert('暂未开放此功能');">立减卷</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
                 <li class="sub-menu">
                     <a href="javasctipt;">
                         <i class=" fa fa-bar-chart-o"></i>

@@ -173,7 +173,7 @@ public class WxPayService {
      */
     public String wxCodeUrl(String orderMark, String price) {
         Map<String, String> data = new HashMap<>();
-        data.put("body", "Ayuan超市商品");
+        data.put("body", "家乐超市商品");
         data.put("out_trade_no", orderMark);
         data.put("device_info", orderMark);
         data.put("total_fee", price);

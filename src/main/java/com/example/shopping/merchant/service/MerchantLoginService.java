@@ -74,20 +74,19 @@ public class MerchantLoginService {
                 }
             }
         } else {
-            // 将信息保存，状态置为2未通过注册,ratio=1
-
             // 添加信息未成功返回超时
-            if (mtMapper.insert(name, email, password, 1, 2) != 1) {
+            if (mtMapper.insert(name, email, password, 1, 1) != 1) {
                 return -1;
             }
         }
         // 发送注册验证邮件
-        boolean res = mailService.sendHtmlMail(email, "Ayuan超市商户注册验证", "<a href='http://" + this.url + "/merchant/sign-check?email=" + email + "'>点击此链接完成注册验证</a>");
-        if (res) {
-            return 1;
-        } else {
-            return -1;
-        }
+//        boolean res = mailService.sendHtmlMail(email, "家乐超市商户注册验证", "<a href='http://" + this.url + "/merchant/sign-check?email=" + email + "'>点击此链接完成注册验证</a>");
+//        if (res) {
+//            return 1;
+//        } else {
+//            return -1;
+//        }
+        return 1;
     }
 
     /**
