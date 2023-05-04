@@ -102,7 +102,7 @@ public class AdminLoginService {
             }
         }
         // 发送注册验证邮件
-        boolean res = mailService.sendHtmlMail(email, "Ayuan超市管理员注册验证", "<a href='http://" + this.url + "/admin/sign-check?email=" + email + "'>点击此链接完成注册验证</a>");
+        boolean res = mailService.sendHtmlMail(email, "家乐超市管理员注册验证", "<a href='http://" + this.url + "/admin/sign-check?email=" + email + "'>点击此链接完成注册验证</a>");
         return res ? 1 : -1;
     }
 

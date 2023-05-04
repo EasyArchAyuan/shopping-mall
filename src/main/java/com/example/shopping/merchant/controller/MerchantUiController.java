@@ -61,7 +61,7 @@ public class MerchantUiController {
         return modelAndView;
     }
 
-    @ApiOperation("修改或添加商户在商城主页的宣传海报")
+    @ApiOperation("修改或添加商户在超市主页的宣传海报")
     @PostMapping("/merchant/update-home-img")
     public ModelAndView updateHomeImg(ModelAndView modelAndView, HttpServletRequest request, MultipartFile img, RedirectAttributes redirectAttributes, int width, int height) {
 

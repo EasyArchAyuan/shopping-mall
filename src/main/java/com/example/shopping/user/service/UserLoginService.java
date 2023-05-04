@@ -108,7 +108,7 @@ public class UserLoginService {
         // 发送注册验证邮件
         Map<String, String> map = new HashMap<>();
         map.put("email", email);
-        map.put("title", "Ayuan超市用户注册验证");
+        map.put("title", "家乐超市用户注册验证");
         map.put("context", "<a href='http://" + this.sitrUrl + "/user/sign-check?email=" + email + "'>点击此链接完成注册验证</a>");
 
         redisTemplate.opsForList().leftPush("email", map);

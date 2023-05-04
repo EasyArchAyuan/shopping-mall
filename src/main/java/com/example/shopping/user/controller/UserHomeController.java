@@ -28,7 +28,7 @@ public class UserHomeController {
     @Autowired
     RedisTemplate redisTemplate;
 
-    @ApiOperation("商城主页")
+    @ApiOperation("超市主页")
     @GetMapping({"/user/home", "/"})
     public ModelAndView home(ModelAndView modelAndView) {
         Map<String, SysUi> imgMap;
@@ -44,7 +44,7 @@ public class UserHomeController {
 
         if (redisTemplate.opsForHash().entries("homePageCache").size() != 0) {
             Map map = redisTemplate.opsForHash().entries("homePageCache");
-            // 商城主页宣传海报
+            // 超市主页宣传海报
             imgMap = (Map<String, SysUi>) map.get("imgMap");
             // 获取热卖商品列表
             escGoodsMap = (Map<String, SysGoods>) map.get("escGoodsMap");
@@ -56,7 +56,7 @@ public class UserHomeController {
             homeImg = (Map<String, SysMtUi>) map.get("homeImg");
             lowImg = (Map<String, SysMtUi>) map.get("lowImg");
         } else {
-            // 商城主页宣传海报
+            // 超市主页宣传海报
             imgMap = homeService.getImage();
             // 获取热卖商品列表
             escGoodsMap = homeService.getEsc(13);
