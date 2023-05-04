@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.util.ResourceUtils;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -279,6 +280,9 @@ public class WxPayService {
     }
 
     public String successWxNotify(String orderMark) {
+        if (StringUtils.isEmpty(orderMark)){
+            return "请输入orderMark订单号";
+        }
         // 订单支付成功之后相关业务逻辑...
         orderMapper.updateState(System.currentTimeMillis(), orderMark);
         List<SysOrder> orderList = orderMapper.findByOrderMark(orderMark);
