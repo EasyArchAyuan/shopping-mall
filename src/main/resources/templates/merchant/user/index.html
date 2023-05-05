@@ -93,7 +93,7 @@
                        th:if="${userList.size()!=0}">
                     <tr>
                         <th>会员头像</th>
-<!--                        <th>会员ID</th>-->
+                        <!--                        <th>会员ID</th>-->
                         <th>会员名称</th>
                         <th>会员邮箱</th>
                         <th>会员余额</th>
@@ -106,7 +106,7 @@
                         <!--                        <td th:text="${user.getId()}"></td>-->
                         <td th:text="${user.getUsername()}"></td>
                         <td th:text="${user.getEmail()}"></td>
-                        <td th:text="${user.getBalance()}"></td>
+                        <td style="color: #d31e00" th:text="${user.getBalance()}"></td>
                         <td style="color: dodgerblue" th:if="${user.getMark() == 1}">
                             已验证
                         </td>
