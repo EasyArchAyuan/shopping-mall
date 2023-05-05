@@ -86,7 +86,7 @@ public class UserHomeController {
             // 获取新出商品列表
             descGoodsMap = homeService.getDesc(6);
             // 随机获取商品列表
-            randGoodsMap = homeService.getRand(6);
+            randGoodsMap = homeService.getRand(12);
 
             tablewareMap = homeService.getType(6, GoodsTypeEnum.Tableware.getCode());
             bathroomMap = homeService.getType(6, GoodsTypeEnum.Bathroom.getCode());
