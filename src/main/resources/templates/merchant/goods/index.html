@@ -92,9 +92,10 @@
                         <th style="text-align: center;">商品ID(状态)</th>
                         <th style="text-align: center;">图示(点击选择)</th>
                         <th style="text-align: center;">商品名称</th>
+                        <th style="text-align: center;">商品类型</th>
+                        <th style="text-align: center;">单品价格</th>
                         <th style="text-align: center;">商品描述</th>
                         <th style="text-align: center;">商品库存</th>
-                        <th style="text-align: center;">单品价格</th>
                         <th style="text-align: center;">操作</th>
                     </tr>
                     <tr>
@@ -114,27 +115,31 @@
                                    type="text">
                         </td>
                         <td style="text-align: center;">
-                            <input name="describe" placeholder="商品描述" style="text-align: center;height: 181.8px"
+                            <input name="type" placeholder="商品类型" style="text-align: center;height: 181.8px"
                                    type="text">
-                        </td>
-                        <td style="text-align: center;">
-                            <input min="0" name="stock" placeholder="商品库存" style="text-align: center;height: 181.8px"
-                                   type="number">
                         </td>
                         <td style="text-align: center;">
                             <input name="price" placeholder="单品价格" style="text-align: center;height: 181.8px"
                                    type="text">
                         </td>
+                        <td style="text-align: center;">
+                            <input name="describe" placeholder="商品描述" style="text-align: center;height: 181.8px"
+                                   type="text">
+                        </td>
+                        <td style="text-align: center;">
+                            <input min="0" name="stock" placeholder="商品库存"
+                                   style="text-align: center;height: 181.8px"
+                                   type="number">
+                        </td>
                         <td style="text-align: center;font-weight: bold;">
-                            <input onclick="loading()" style="text-align: center;height: 181.8px;color: purple" type="submit"
+                            <input onclick="loading()" style="text-align: center;height: 181.8px;color: purple"
+                                   type="submit"
                                    value="添加商品">
                         </td>
                     </tr>
                 </form>
-                <!--/*@thymesVar id="goodsList" type="java.awt.List"*/-->
                 <tr style="height: 35px" th:each="goods,stat : ${goodsList}" th:if="${goodsList} != null">
                     <form enctype="multipart/form-data" method="post" th:action="@{/merchant/update-goods}">
-
                         <td style="text-align: center;" th:if="${goods.getState()==1}">
                             <b>[[${goods.getId()}]]</b>
                             <p style="color: purple">(售卖中)</p>
@@ -144,27 +149,53 @@
                             <p style="color: grey">(已下架)</p>
                         </td>
                         <td style="text-align: center;">
-                            <!--/*@thymesVar id="goods" type="com.example.shopping.common.entity.SysGoods"*/-->
-                            <!--/*@thymesVar id="getImg" type="java.lang.String"*/-->
                             <img style="width: 144px;height: 181.8px" th:id="${'img'+stat.count}"
                                  th:onclick="upImg('input[[${stat.count}]]')" th:src="@{${goods.getImg()}}">
-                            <input name="img" style="display: none" th:id="${'input'+stat.count}" th:onchange="showImg(this,'img[[${stat.count}]]')"
+                            <input name="img" style="display: none" th:id="${'input'+stat.count}"
+                                   th:onchange="showImg(this,'img[[${stat.count}]]')"
                                    type="file">
                         </td>
                         <td style="text-align: center;">
                             <input hidden="hidden" name="id" th:value="${goods.getId()}" type="number">
                             <input name="name" th:value="${goods.getName()}">
                         </td>
+                        <td style="text-align: center;color: purple" th:if="${goods.getType() == 1}">
+                            <input name="type" th:value="会员充值卡">
+                        </td>
+
+                        <td style="text-align: center;color: purple" th:if="${goods.getType() == 2}">
+                            <input name="type" th:value="餐具">
+                        </td>
+
+                        <td style="text-align: center;color: purple" th:if="${goods.getType() == 3}">
+                            <input name="type" th:value="卫浴用品">
+                        </td>
+
+                        <td style="text-align: center;color: purple" th:if="${goods.getType() == 4}">
+                            <input name="type" th:value="电器">
+                        </td>
+
+                        <td style="text-align: center;color: purple" th:if="${goods.getType() == 5}">
+                            <input name="type" th:value="日杂用品">
+                        </td>
+
+                        <td style="text-align: center;color: purple" th:if="${goods.getType() == 6}">
+                            <input name="type" th:value="清洁用品">
+                        </td>
+
+                        <td style="text-align: center;color: purple" th:if="${goods.getType() == 7}">
+                            <input name="type" th:value="家居用品">
+                        </td>
+                        <td style="text-align: center;color: purple" }>
+                            <b>
+                                <input name="price" th:value="${goods.getPrice()}">
+                            </b>
+                        </td>
                         <td style="text-align: center;">
                             <input name="describe" th:value="${goods.getDescribe()}">
                         </td>
                         <td style="text-align: center;">
                             <input min="0" name="stock" th:value="${goods.getStock()}" type="number">
-                        </td>
-                        <td style="text-align: center;color: purple">
-                            <b>
-                                <input name="price" th:value="${goods.getPrice()}">
-                            </b>
                         </td>
                         <td style="text-align: center;">
                             <!--                            <button type="button" style="background: orangered;color: white;border-radius: 5px;width: 50px;height: 30px"
