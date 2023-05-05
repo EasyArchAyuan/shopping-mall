@@ -1,10 +1,8 @@
 package com.example.shopping.user.service;
 
 import com.example.shopping.common.entity.SysGoods;
-import com.example.shopping.common.entity.SysMtUi;
 import com.example.shopping.common.entity.SysUi;
 import com.example.shopping.common.mapper.SysGoodsMapper;
-import com.example.shopping.common.mapper.SysMtUiMapper;
 import com.example.shopping.common.mapper.SysUiMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,9 +25,6 @@ public class UserHomeService {
 
     @Autowired
     private SysGoodsMapper goodsMapper;
-
-    @Autowired
-    private SysMtUiMapper mtUiMapper;
 
     /**
      * <p>设置缓存  十分钟内有效</p>
@@ -119,18 +114,6 @@ public class UserHomeService {
     public Map<String, SysGoods> getRand(int num) {
         List<SysGoods> list = goodsMapper.findRand(num);
         Map<String, SysGoods> map = new HashMap<>();
-        for (int i = 0; i < list.size(); i++) {
-            map.put(String.valueOf(i), list.get(i));
-        }
-        return map;
-    }
-
-    /*
-     * 获取商户宣传店铺的海报
-     */
-    public Map<String, SysMtUi> getMtImg(int width, int height, int num) {
-        Map<String, SysMtUi> map = new HashMap<>();
-        List<SysMtUi> list = mtUiMapper.findLimit(width, height, num);
         for (int i = 0; i < list.size(); i++) {
             map.put(String.valueOf(i), list.get(i));
         }

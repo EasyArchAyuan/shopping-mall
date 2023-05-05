@@ -49,7 +49,7 @@ public class MerchantLoginService {
      *
      * @return 0 必填信息不能为空
      * -1 验证邮件发送失败，请重试
-     * 1 验证信息已发送至邮箱，请留意接收
+     * 1 注册成功
      * 2 该邮箱已被注册
      * 3 邮箱格式不正确
      */
@@ -75,17 +75,10 @@ public class MerchantLoginService {
             }
         } else {
             // 添加信息未成功返回超时
-            if (mtMapper.insert(name, email, password, 1, 1) != 1) {
+            if (mtMapper.insert(name, email, password, 1) != 1) {
                 return -1;
             }
         }
-        // 发送注册验证邮件
-//        boolean res = mailService.sendHtmlMail(email, "家乐超市商户注册验证", "<a href='http://" + this.url + "/merchant/sign-check?email=" + email + "'>点击此链接完成注册验证</a>");
-//        if (res) {
-//            return 1;
-//        } else {
-//            return -1;
-//        }
         return 1;
     }
 

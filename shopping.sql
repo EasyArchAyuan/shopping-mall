@@ -379,7 +379,6 @@ CREATE TABLE `sys_order`
   `pay_way`        tinyint                                                 NOT NULL COMMENT '1支付宝 0微信支付',
   `pay_code_url`   varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci          DEFAULT NULL COMMENT '支付链接',
   `cart_id`        varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci           DEFAULT NULL COMMENT '批量购买的商品',
-  `merchant_ratio` float(11, 1)                                            NOT NULL DEFAULT '1.0' COMMENT '订单创建时商户的费率',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `order_id` (`order_id`) USING BTREE COMMENT '订单号唯一'
 ) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;

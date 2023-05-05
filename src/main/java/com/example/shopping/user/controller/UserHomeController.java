@@ -2,7 +2,6 @@ package com.example.shopping.user.controller;
 
 import com.example.shopping.common.baseenum.GoodsTypeEnum;
 import com.example.shopping.common.entity.SysGoods;
-import com.example.shopping.common.entity.SysMtUi;
 import com.example.shopping.common.entity.SysUi;
 import com.example.shopping.user.service.UserHomeService;
 import io.swagger.annotations.Api;
@@ -52,10 +51,6 @@ public class UserHomeController {
         // 家居用品4
         Map<String, SysGoods> homeSuppliesMap;
 
-        // 获取商户宣传店铺的海报
-        Map<String, SysMtUi> homeImg;
-        Map<String, SysMtUi> lowImg;
-
         if (redisTemplate.opsForHash().entries("homePageCache").size() != 0) {
             Map map = redisTemplate.opsForHash().entries("homePageCache");
             // 超市主页宣传海报
@@ -74,10 +69,6 @@ public class UserHomeController {
             cleaningSuppliesMap = (Map<String, SysGoods>) map.get("cleaningSuppliesMap");
             homeSuppliesMap = (Map<String, SysGoods>) map.get("homeSuppliesMap");
 
-
-            // 获取商户宣传店铺的海报
-            homeImg = (Map<String, SysMtUi>) map.get("homeImg");
-            lowImg = (Map<String, SysMtUi>) map.get("lowImg");
         } else {
             // 超市主页宣传海报
             imgMap = homeService.getImage();
@@ -94,10 +85,6 @@ public class UserHomeController {
             dailyNecessitiesMap = homeService.getType(4, GoodsTypeEnum.DailyNecessities.getCode());
             cleaningSuppliesMap = homeService.getType(6, GoodsTypeEnum.CleaningSupplies.getCode());
             homeSuppliesMap = homeService.getType(4, GoodsTypeEnum.HomeSupplies.getCode());
-
-            // 获取商户宣传店铺的海报
-            homeImg = homeService.getMtImg(400, 320, 3);
-            lowImg = homeService.getMtImg(600, 310, 3);
         }
 
         modelAndView.addObject("imgMap", imgMap);
@@ -112,9 +99,6 @@ public class UserHomeController {
         modelAndView.addObject("cleaningSuppliesMap", cleaningSuppliesMap);
         modelAndView.addObject("homeSuppliesMap", homeSuppliesMap);
 
-
-        modelAndView.addObject("homeImg", homeImg);
-        modelAndView.addObject("lowImg", lowImg);
 
         if (redisTemplate.opsForHash().entries("homePageCache").size() == 0) {
             // 设置缓存  十分钟内有效
