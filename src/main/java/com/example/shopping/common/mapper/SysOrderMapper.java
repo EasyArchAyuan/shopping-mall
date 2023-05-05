@@ -58,11 +58,11 @@ public interface SysOrderMapper {
     // 添加订单
     int insert1(String orderId, long createTime, int goodsNum, String orderMark, int orderUser, int orderMerchant,
                 BigDecimal orderPrice, int goodsId, String orderNotes, String userAddress, String userName,
-                String userPhone, String couponCode, int payWay, float merchantRatio);
+                String userPhone, String couponCode, int payWay);
 
     int insert2(String orderId, long createTime, int goodsNum, String orderMark, int orderUser, int orderMerchant,
                 BigDecimal orderPrice, int goodsId, String orderNotes, String userAddress, String userName,
-                String userPhone, String couponCode, int payWay, String cartId, float merchantRatio);
+                String userPhone, String couponCode, int payWay, String cartId);
 
     // 收益
     Float websiteProfitCount();

@@ -92,11 +92,11 @@ public class WxPayService {
             if (cartArr[i].equals("0")) {
                 sql = orderMapper.insert1(orderId, createTime, Integer.parseInt(numArr[i]), mark, Integer.parseInt(userArr[i]),
                         Integer.parseInt(merchantsArr[i]), new BigDecimal(dfPrice.format(Double.valueOf(pricesArr[i]))),
-                        Integer.parseInt(goodsArr[i]), notes, address, name, phone, code, way, merchant.getRatio());
+                        Integer.parseInt(goodsArr[i]), notes, address, name, phone, code, way);
             } else {
                 sql = orderMapper.insert2(orderId, createTime, Integer.parseInt(numArr[i]), mark, Integer.parseInt(userArr[i]),
                         Integer.parseInt(merchantsArr[i]), new BigDecimal(dfPrice.format(Double.valueOf(pricesArr[i]))),
-                        Integer.parseInt(goodsArr[i]), notes, address, name, phone, code, way, cartArr[i], merchant.getRatio());
+                        Integer.parseInt(goodsArr[i]), notes, address, name, phone, code, way, cartArr[i]);
             }
             // 将商品库存做相应的减少
             int delStock = goodsMapper.delStock(Integer.parseInt(goodsArr[i]), Integer.parseInt(numArr[i]));

@@ -45,7 +45,7 @@
     </select>
 
     <insert id="insert">
-        insert into sys_mt(id, name, email, password, ratio, state)
+        insert into sys_mt(id, name, email, password, state)
         values (default, #{name}, #{email}, #{password}, #{state});
     </insert>
 

@@ -75,7 +75,7 @@ public class MerchantLoginService {
             }
         } else {
             // 添加信息未成功返回超时
-            if (mtMapper.insert(name, email, password, 1) != 1) {
+            if (mtMapper.insert(name, email, password, 0) != 1) {
                 return -1;
             }
         }
