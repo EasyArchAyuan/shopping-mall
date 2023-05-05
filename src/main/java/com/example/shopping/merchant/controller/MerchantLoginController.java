@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  * @author EasyArchAyuan
  * 2023/4/8 12:43
  */
-@Api(tags = "商户模块登录接口")
+@Api(tags = "员工模块登录接口")
 @RestController
 @RequestMapping("/merchant")
 public class MerchantLoginController {

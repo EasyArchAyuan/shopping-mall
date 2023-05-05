@@ -9,7 +9,10 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,7 +28,7 @@ import java.util.Set;
  * @author EasyArchAyuan
  * 2023/4/8 16:27
  */
-@Api(tags = "商户模块商品管理接口")
+@Api(tags = "员工模块商品管理接口")
 @RestController
 public class MerchantGoodsController {
     @Autowired
