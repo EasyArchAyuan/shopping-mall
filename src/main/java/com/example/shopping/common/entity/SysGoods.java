@@ -24,4 +24,5 @@ public class SysGoods {
     private int state;
     private int merchant;
     private int stock;
+    private int type;
 }

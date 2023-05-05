@@ -46,16 +46,24 @@
                     <h2>SIGN UP</h2>
                     <br/><br/>
                     <input id="email"
-                           name="email" placeholder="邮箱" style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px" type="text"/>
+                           name="email" placeholder="邮箱"
+                           style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px"
+                           type="text"/>
                     <br/><br/>
                     <input id="username"
-                           name="username" placeholder="昵称" style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px" type="text"/>
+                           name="username" placeholder="昵称"
+                           style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px"
+                           type="text"/>
                     <br/><br/>
                     <input id="password"
-                           name="password" placeholder="密码" style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px" type="password"/>
+                           name="password" placeholder="密码"
+                           style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px"
+                           type="password"/>
                     <br/><br/>
                     <input id="repwd"
-                           name="repwd" placeholder="确认密码" style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px" type="password"/>
+                           name="repwd" placeholder="确认密码"
+                           style="border: 0;width: 80%;height: 40px;border-radius: 5px;text-align: left;padding-left: 10px"
+                           type="password"/>
                     <br/><br/>
                     <button class="btn_sign_up" id="button" onclick="button()" type="button">注册</button>
                 </div>
@@ -67,11 +75,6 @@
     </div>
 </div>
 <script>
-    if (sessionStorage.getItem("user_sign_num") > 0) {
-        sessionStorage.setItem("user_sign_num", sessionStorage.getItem("user_sign_num"));
-        change();
-    }
-
     function button() {
         var email = document.getElementById("email").value;
         var username = document.getElementById("username").value;
@@ -89,27 +92,17 @@
                 alert("网络出现了问题！！")
             }
         });
-        sessionStorage.setItem("user_sign_num", 60);
         change();
     }
 
     function change() {
         var button = document.getElementById("button");
         button.style.background = "grey";
-        button.disabled = true;
-        var time = setInterval(function () {
-            var num = sessionStorage.getItem("user_sign_num");
-            if (num <= 0) {
-                button.style.background = "orangered";
-                button.disabled = false;
-                button.innerText = "重新发送验证码";
-                clearInterval(time);
-            } else {
-                button.innerText = "重新发送验证码（" + num + ")";
-            }
-            sessionStorage.setItem("user_sign_num", --num);
-        }, 1000);
+        button.style.background = "orangered";
+        button.innerText = "注册成功";
+        button.disabled = false;
     }
+
 </script>
 <script th:src="@{/js/user/index.js}"></script>
 <script th:include="user/common/model::alertMsg"></script>
