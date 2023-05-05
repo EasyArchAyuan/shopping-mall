@@ -38,7 +38,7 @@
 	21. error-page
 	27. portfolio page
 	28. portfolio single page
-    5.  
+    29. 首页样式
 -----------------------------------------------------------------------------------*/
 
 /*----------------------------------------*/
@@ -1080,8 +1080,6 @@ ul.product-nav li:last-child::before {
 .banner-2-area {
 }
 
-.tableware {
-}
 
 .banner-bottom {
     margin-top: 15px
@@ -4302,4 +4300,26 @@ p.checkout-coupon input[type=submit] {
 
 .mobile-menu {
     display: none;
+}
+
+
+/*-----------------------------------
+ 29.首页样式
+-------------------------------------*/
+.tableware {
+}
+
+.bathroom {
+}
+
+.electrical {
+}
+
+.daily-necessities {
+}
+
+.cleaning-supplies {
+}
+
+.home-supplies {
 }
