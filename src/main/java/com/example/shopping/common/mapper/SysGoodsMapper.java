@@ -20,6 +20,8 @@ public interface SysGoodsMapper {
 
     List<SysGoods> findAllEsc(int num);
 
+    List<SysGoods> findType(int num, int type);
+
     List<SysGoods> findRand(int num);
 
     List<SysGoods> findMerchantRand(int merchant, int num);

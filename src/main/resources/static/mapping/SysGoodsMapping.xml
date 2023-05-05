@@ -64,6 +64,14 @@
         where state = 1 limit #{num};
     </select>
 
+    <select id="findType" resultType="com.example.shopping.common.entity.SysGoods">
+        select *
+        from sys_goods
+        where state = 1
+        and type = #{type}
+        order by id desc limit #{num};
+    </select>
+
     <select id="findById" resultType="com.example.shopping.common.entity.SysGoods">
         select *
         from sys_goods

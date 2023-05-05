@@ -1,5 +1,6 @@
 package com.example.shopping.user.controller;
 
+import com.example.shopping.common.baseenum.GoodsTypeEnum;
 import com.example.shopping.common.entity.SysGoods;
 import com.example.shopping.common.entity.SysMtUi;
 import com.example.shopping.common.entity.SysUi;
@@ -9,8 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,10 +22,12 @@ import java.util.Map;
 @Api(tags = "用户模块主页接口")
 @RestController
 public class UserHomeController {
+
     @Autowired
-    UserHomeService homeService;
+    private UserHomeService homeService;
+
     @Autowired
-    RedisTemplate redisTemplate;
+    private RedisTemplate redisTemplate;
 
     @ApiOperation("超市主页")
     @GetMapping({"/user/home", "/"})
@@ -38,6 +39,19 @@ public class UserHomeController {
         Map<String, SysGoods> descGoodsMap;
         // 随机获取商品列表
         Map<String, SysGoods> randGoodsMap;
+        // 餐具6
+        Map<String, SysGoods> tablewareMap;
+        // 卫浴用品6
+        Map<String, SysGoods> bathroomMap;
+        // 电器4
+        Map<String, SysGoods> electricalMap;
+        // 日杂用品4
+        Map<String, SysGoods> dailyNecessitiesMap;
+        // 清洁用品6
+        Map<String, SysGoods> cleaningSuppliesMap;
+        // 家居用品4
+        Map<String, SysGoods> homeSuppliesMap;
+
         // 获取商户宣传店铺的海报
         Map<String, SysMtUi> homeImg;
         Map<String, SysMtUi> lowImg;
@@ -52,6 +66,15 @@ public class UserHomeController {
             descGoodsMap = (Map<String, SysGoods>) map.get("descGoodsMap");
             // 随机获取商品列表
             randGoodsMap = (Map<String, SysGoods>) map.get("randGoodsMap");
+
+            tablewareMap = (Map<String, SysGoods>) map.get("tablewareMap");
+            bathroomMap = (Map<String, SysGoods>) map.get("bathroomMap");
+            electricalMap = (Map<String, SysGoods>) map.get("electricalMap");
+            dailyNecessitiesMap = (Map<String, SysGoods>) map.get("dailyNecessitiesMap");
+            cleaningSuppliesMap = (Map<String, SysGoods>) map.get("cleaningSuppliesMap");
+            homeSuppliesMap = (Map<String, SysGoods>) map.get("homeSuppliesMap");
+
+
             // 获取商户宣传店铺的海报
             homeImg = (Map<String, SysMtUi>) map.get("homeImg");
             lowImg = (Map<String, SysMtUi>) map.get("lowImg");
@@ -59,19 +82,37 @@ public class UserHomeController {
             // 超市主页宣传海报
             imgMap = homeService.getImage();
             // 获取热卖商品列表
-            escGoodsMap = homeService.getEsc(13);
+            escGoodsMap = homeService.getEsc(6);
             // 获取新出商品列表
             descGoodsMap = homeService.getDesc(6);
             // 随机获取商品列表
-            randGoodsMap = homeService.getRand(12);
+            randGoodsMap = homeService.getRand(6);
+
+            tablewareMap = homeService.getType(6, GoodsTypeEnum.Tableware.getCode());
+            bathroomMap = homeService.getType(6, GoodsTypeEnum.Bathroom.getCode());
+            electricalMap = homeService.getType(4, GoodsTypeEnum.Electrical.getCode());
+            dailyNecessitiesMap = homeService.getType(4, GoodsTypeEnum.DailyNecessities.getCode());
+            cleaningSuppliesMap = homeService.getType(6, GoodsTypeEnum.CleaningSupplies.getCode());
+            homeSuppliesMap = homeService.getType(4, GoodsTypeEnum.HomeSupplies.getCode());
+
             // 获取商户宣传店铺的海报
             homeImg = homeService.getMtImg(400, 320, 3);
             lowImg = homeService.getMtImg(600, 310, 3);
         }
+
         modelAndView.addObject("imgMap", imgMap);
         modelAndView.addObject("escGoodsMap", escGoodsMap);
         modelAndView.addObject("descGoodsMap", descGoodsMap);
         modelAndView.addObject("randGoodsMap", randGoodsMap);
+
+        modelAndView.addObject("tablewareMap", tablewareMap);
+        modelAndView.addObject("bathroomMap", bathroomMap);
+        modelAndView.addObject("electricalMap", electricalMap);
+        modelAndView.addObject("dailyNecessitiesMap", dailyNecessitiesMap);
+        modelAndView.addObject("cleaningSuppliesMap", cleaningSuppliesMap);
+        modelAndView.addObject("homeSuppliesMap", homeSuppliesMap);
+
+
         modelAndView.addObject("homeImg", homeImg);
         modelAndView.addObject("lowImg", lowImg);
 

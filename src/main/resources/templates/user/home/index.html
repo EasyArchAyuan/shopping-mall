@@ -88,7 +88,7 @@
 
 <!-- header start -->
 <header class="header-home" th:include="user/common/model::header"></header>
-<!-- header end -->
+
 <!-- 滑块 -->
 <div class="slider-wrap">
     <div class="fullwidthbanner-container">
@@ -205,73 +205,393 @@
     </div>
 </div>
 
-<!-- 广告位banner -->
-<div class="banner-area">
+<!-- 餐具 (6) -->
+<div class="tableware pad-60">
     <div class="container">
+        <!-- section-heading start -->
         <div class="row">
-            <p style="position: relative;left: 15px">广告位</p>
-            <!-- single-banner start -->
-            <div class="col-md-5 col-sm-5 col-xs-12">
-                <div class="single-banner">
-                    <!--475x570-->
-                    <a>
-                        <img alt="slide" th:if="${imgMap.get('475')} eq null" th:src="@{/image/user/home/banner/1.jpg}">
-                        <img alt="slide" style="width: 470px;height: 570px" th:if="${imgMap.get('475')} ne null"
-                             th:src="@{${imgMap.get('475').getUrl()}}">
-                    </a>
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h1>餐具</h1>
+                    <div class="title-icon">
+                        <span><i class="fa fa-angle-left"></i> <i class="fa fa-angle-right"></i></span>
+                    </div>
                 </div>
             </div>
-            <!-- single-banner end -->
-            <div class="col-md-7 col-sm-7 col-xs-12">
-                <div class="row">
-                    <!-- single-banner start -->
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="single-banner banner-margin">
-                            <!--674x264-->
-                            <a>
-                                <img alt="slide" th:if="${imgMap.get('674')} eq null"
-                                     th:src="@{/image/user/home/banner/2.jpg}">
-                                <img alt="slide" style="width: 674px;height: 264px"
-                                     th:if="${imgMap.get('674')} ne null" th:src="@{${imgMap.get('674').getUrl()}}">
-                            </a>
+        </div>
+        <!-- section-heading end -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="features-tab">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home1" role="tabpanel">
+                            <div class="row">
+                                <div class="features-curosel">
+                                    <!-- 1 -->
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="single-product">
+                                            <span class="sale-text">特卖</span>
+                                            <div class="product-img">
+                                                <a target="_blank"
+                                                   th:href="@{/user/product(id=${tablewareMap.get('0').getId()})}"
+                                                   th:if="${tablewareMap.get('0')}!=null">
+                                                    <img alt="" class="primary-image"
+                                                         th:src="@{${tablewareMap.get('0').getImg()}}"/>
+                                                    <img alt="" class="secondary-image"
+                                                         th:src="@{${tablewareMap.get('0').getImg()}}"/>
+                                                </a>
+                                                <a target="_blank" th:unless="${tablewareMap.get('0')}!=null">
+                                                    <img alt="" class="primary-image"
+                                                         th:src="@{/image/user/home/product/5.jpg}"/>
+                                                    <img alt="" class="secondary-image"
+                                                         th:src="@{/image/user/home/product/6.jpg}"/>
+                                                </a>
+                                                <div class="actions" th:if="${tablewareMap.get('0')}!=null">
+                                                    <div class="action-buttons">
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/product(id=${descGoodsMap.get('0').getId()})}">&nbsp;点击查看详情&nbsp;</a>
+                                                        </div>
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/add-cart(id=${descGoodsMap.get('0').getId()},num=1)}">&nbsp;加入到购物车&nbsp;</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h2 class="product-name">
+                                                    <a target="_blank"
+                                                       th:href="@{/user/product(id=${tablewareMap.get('0').getId()})}"
+                                                       th:if="${tablewareMap.get('0')}!=null">
+                                                        [[${tablewareMap.get('0').getName()}]]
+                                                    </a>
+                                                    <a target="_blank" th:unless="${tablewareMap.get('0')}!=null">
+                                                        product-name
+                                                    </a>
+                                                </h2>
+                                                <div class="pro-rating">
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                </div>
+                                                <div class="price-box">
+                                                    <span class="new-price" th:unless="${tablewareMap.get('0')}!=null">￥0.00</span>
+                                                    <span class="new-price" th:if="${tablewareMap.get('0')}!=null">￥[[${descGoodsMap.get('0').getPrice()}]]</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 2 -->
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="single-product">
+                                            <span class="sale-text">特卖</span>
+                                            <div class="product-img">
+                                                <a target="_blank"
+                                                   th:href="@{/user/product(id=${descGoodsMap.get('1').getId()})}"
+                                                   th:if="${descGoodsMap.get('1')}!=null">
+                                                    <img alt=""
+                                                         class="primary-image"
+                                                         th:src="@{${descGoodsMap.get('1').getImg()}}"/>
+                                                    <img alt=""
+                                                         class="secondary-image"
+                                                         th:src="@{${descGoodsMap.get('1').getImg()}}"/>
+                                                </a>
+                                                <a target="_blank" th:unless="${descGoodsMap.get('1')}!=null">
+                                                    <img alt=""
+                                                         class="primary-image"
+                                                         th:src="@{/image/user/home/product/5.jpg}"/>
+                                                    <img alt=""
+                                                         class="secondary-image"
+                                                         th:src="@{/image/user/home/product/6.jpg}"/>
+                                                </a>
+                                                <div class="actions" th:if="${descGoodsMap.get('1')}!=null">
+                                                    <div class="action-buttons">
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/product(id=${descGoodsMap.get('1').getId()})}">&nbsp;点击查看详情&nbsp;</a>
+                                                        </div>
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/add-cart(id=${descGoodsMap.get('1').getId()},num=1)}">&nbsp;加入到购物车&nbsp;</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h2 class="product-name">
+                                                    <a target="_blank"
+                                                       th:href="@{/user/product(id=${descGoodsMap.get('1').getId()})}"
+                                                       th:if="${descGoodsMap.get('1')}!=null">
+                                                        [[${descGoodsMap.get('1').getName()}]]
+                                                    </a>
+                                                    <a target="_blank" th:unless="${descGoodsMap.get('1')}!=null">
+                                                        product-name
+                                                    </a>
+                                                </h2>
+                                                <div class="pro-rating">
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                </div>
+                                                <div class="price-box">
+                                                    <span class="new-price" th:unless="${descGoodsMap.get('1')}!=null">￥0.00</span>
+                                                    <span class="new-price" th:if="${descGoodsMap.get('1')}!=null">￥[[${descGoodsMap.get('1').getPrice()}]]</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 3 -->
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="single-product">
+                                            <div class="product-img">
+                                                <a target="_blank"
+                                                   th:href="@{/user/product(id=${descGoodsMap.get('2').getId()})}"
+                                                   th:if="${descGoodsMap.get('2')}!=null">
+                                                    <img alt=""
+                                                         class="primary-image"
+                                                         th:src="@{${descGoodsMap.get('2').getImg()}}"/>
+                                                    <img alt=""
+                                                         class="secondary-image"
+                                                         th:src="@{${descGoodsMap.get('2').getImg()}}"/>
+                                                </a>
+                                                <a target="_blank" th:unless="${descGoodsMap.get('2')}!=null">
+                                                    <img alt=""
+                                                         class="primary-image"
+                                                         th:src="@{/image/user/home/product/5.jpg}"/>
+                                                    <img alt=""
+                                                         class="secondary-image"
+                                                         th:src="@{/image/user/home/product/6.jpg}"/>
+                                                </a>
+                                                <div class="actions" th:if="${descGoodsMap.get('2')}!=null">
+                                                    <div class="action-buttons">
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/product(id=${descGoodsMap.get('2').getId()})}">&nbsp;点击查看详情&nbsp;</a>
+                                                        </div>
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/add-cart(id=${descGoodsMap.get('2').getId()},num=1)}">&nbsp;加入到购物车&nbsp;</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h2 class="product-name">
+                                                    <a target="_blank"
+                                                       th:href="@{/user/product(id=${descGoodsMap.get('2').getId()})}"
+                                                       th:if="${descGoodsMap.get('2')}!=null">
+                                                        [[${descGoodsMap.get('2').getName()}]]
+                                                    </a>
+                                                    <a target="_blank" th:unless="${descGoodsMap.get('2')}!=null"
+                                                    >
+                                                        product-name
+                                                    </a>
+                                                </h2>
+                                                <div class="pro-rating">
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                </div>
+                                                <div class="price-box">
+                                                    <span class="new-price" th:unless="${descGoodsMap.get('2')}!=null">￥0.00</span>
+                                                    <span class="new-price" th:if="${descGoodsMap.get('2')}!=null">￥[[${descGoodsMap.get('2').getPrice()}]]</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 4-->
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="single-product">
+                                            <span class="sale-text">特卖</span>
+                                            <div class="product-img">
+                                                <a target="_blank"
+                                                   th:href="@{/user/product(id=${descGoodsMap.get('3').getId()})}"
+                                                   th:if="${descGoodsMap.get('3')}!=null">
+                                                    <img alt=""
+                                                         class="primary-image"
+                                                         th:src="@{${descGoodsMap.get('3').getImg()}}"/>
+                                                    <img alt=""
+                                                         class="secondary-image"
+                                                         th:src="@{${descGoodsMap.get('3').getImg()}}"/>
+                                                </a>
+                                                <a target="_blank" th:unless="${descGoodsMap.get('3')}!=null">
+                                                    <img alt=""
+                                                         class="primary-image"
+                                                         th:src="@{/image/user/home/product/5.jpg}"/>
+                                                    <img alt=""
+                                                         class="secondary-image"
+                                                         th:src="@{/image/user/home/product/6.jpg}"/>
+                                                </a>
+                                                <div class="actions" th:if="${descGoodsMap.get('3')}!=null">
+                                                    <div class="action-buttons">
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/product(id=${descGoodsMap.get('3').getId()})}">&nbsp;点击查看详情&nbsp;</a>
+                                                        </div>
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/add-cart(id=${descGoodsMap.get('3').getId()},num=1)}">&nbsp;加入到购物车&nbsp;</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h2 class="product-name">
+                                                    <a target="_blank"
+                                                       th:href="@{/user/product(id=${descGoodsMap.get('3').getId()})}"
+                                                       th:if="${descGoodsMap.get('3')}!=null">
+                                                        [[${descGoodsMap.get('3').getName()}]]
+                                                    </a>
+                                                    <a target="_blank" th:unless="${descGoodsMap.get('3')}!=null"
+                                                    >
+                                                        product-name
+                                                    </a>
+                                                </h2>
+                                                <div class="pro-rating">
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                </div>
+                                                <div class="price-box">
+                                                    <span class="new-price" th:unless="${descGoodsMap.get('3')}!=null">￥0.00</span>
+                                                    <span class="new-price" th:if="${descGoodsMap.get('3')}!=null">￥[[${descGoodsMap.get('3').getPrice()}]]</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 5 -->
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="single-product">
+                                            <span class="sale-text">特卖</span>
+                                            <div class="product-img">
+                                                <a target="_blank"
+                                                   th:href="@{/user/product(id=${descGoodsMap.get('4').getId()})}"
+                                                   th:if="${descGoodsMap.get('4')}!=null">
+                                                    <img alt=""
+                                                         class="primary-image"
+                                                         th:src="@{${descGoodsMap.get('4').getImg()}}"/>
+                                                    <img alt=""
+                                                         class="secondary-image"
+                                                         th:src="@{${descGoodsMap.get('4').getImg()}}"/>
+                                                </a>
+                                                <a target="_blank" th:unless="${descGoodsMap.get('4')}!=null">
+                                                    <img alt=""
+                                                         class="primary-image"
+                                                         th:src="@{/image/user/home/product/5.jpg}"/>
+                                                    <img alt=""
+                                                         class="secondary-image"
+                                                         th:src="@{/image/user/home/product/6.jpg}"/>
+                                                </a>
+                                                <div class="actions" th:if="${descGoodsMap.get('4')}!=null">
+                                                    <div class="action-buttons">
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/product(id=${descGoodsMap.get('4').getId()})}">&nbsp;点击查看详情&nbsp;</a>
+                                                        </div>
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/add-cart(id=${descGoodsMap.get('4').getId()},num=1)}">&nbsp;加入到购物车&nbsp;</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h2 class="product-name">
+                                                    <a target="_blank"
+                                                       th:href="@{/user/product(id=${descGoodsMap.get('4').getId()})}"
+                                                       th:if="${descGoodsMap.get('4')}!=null">
+                                                        [[${descGoodsMap.get('4').getName()}]]
+                                                    </a>
+                                                    <a target="_blank" th:unless="${descGoodsMap.get('4')}!=null">
+                                                        product-name
+                                                    </a>
+                                                </h2>
+                                                <div class="pro-rating">
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                </div>
+                                                <div class="price-box">
+                                                    <span class="new-price" th:unless="${descGoodsMap.get('4')}!=null">￥0.00</span>
+                                                    <span class="new-price" th:if="${descGoodsMap.get('4')}!=null">￥[[${descGoodsMap.get('4').getPrice()}]]</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 6 -->
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="single-product">
+                                            <span class="sale-text">特卖</span>
+                                            <div class="product-img">
+                                                <a target="_blank"
+                                                   th:href="@{/user/product(id=${descGoodsMap.get('5').getId()})}"
+                                                   th:if="${descGoodsMap.get('5')}!=null">
+                                                    <img alt=""
+                                                         class="primary-image"
+                                                         th:src="@{${descGoodsMap.get('5').getImg()}}"/>
+                                                    <img alt=""
+                                                         class="secondary-image"
+                                                         th:src="@{${descGoodsMap.get('5').getImg()}}"/>
+                                                </a>
+                                                <a target="_blank" th:unless="${descGoodsMap.get('5')}!=null">
+                                                    <img alt=""
+                                                         class="primary-image"
+                                                         th:src="@{/image/user/home/product/5.jpg}"/>
+                                                    <img alt=""
+                                                         class="secondary-image"
+                                                         th:src="@{/image/user/home/product/6.jpg}"/>
+                                                </a>
+                                                <div class="actions" th:if="${descGoodsMap.get('5')}!=null">
+                                                    <div class="action-buttons">
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/product(id=${descGoodsMap.get('5').getId()})}">&nbsp;点击查看详情&nbsp;</a>
+                                                        </div>
+                                                        <div class="add-to-cart">
+                                                            <a th:href="@{/user/add-cart(id=${descGoodsMap.get('5').getId()},num=1)}">&nbsp;加入到购物车&nbsp;</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h2 class="product-name">
+                                                    <a target="_blank"
+                                                       th:href="@{/user/product(id=${descGoodsMap.get('5').getId()})}"
+                                                       th:if="${descGoodsMap.get('5')}!=null">
+                                                        [[${descGoodsMap.get('5').getName()}]]
+                                                    </a>
+                                                    <a target="_blank" th:unless="${descGoodsMap.get('5')}!=null"
+                                                    >
+                                                        product-name
+                                                    </a>
+                                                </h2>
+                                                <div class="pro-rating">
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                    <a><i class="fa fa-star"></i></a>
+                                                </div>
+                                                <div class="price-box">
+                                                    <span class="new-price" th:unless="${descGoodsMap.get('5')}!=null">￥0.00</span>
+                                                    <span class="new-price" th:if="${descGoodsMap.get('5')}!=null">￥[[${descGoodsMap.get('5').getPrice()}]]</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- single-banner end -->
-                    <!-- single-banner start -->
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <div class="single-banner">
-                            <!--315x282-->
-                            <a>
-                                <img alt="slide" th:if="${imgMap.get('3151')} eq null"
-                                     th:src="@{/image/user/home/banner/3.jpg}">
-                                <img alt="slide" style="width: 315px;height: 282px"
-                                     th:if="${imgMap.get('3151')} ne null" th:src="@{${imgMap.get('3151').getUrl()}}">
-
-                            </a>
-                        </div>
-                    </div>
-                    <!-- single-banner end -->
-                    <!-- single-banner start -->
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <div class="single-banner">
-                            <!--315x282-->
-                            <a>
-                                <img alt="slide" th:if="${imgMap.get('3152')} eq null"
-                                     th:src="@{/image/user/home/banner/3.jpg}">
-                                <img alt="slide" style="width: 315px;height: 282px"
-                                     th:if="${imgMap.get('3152')} ne null" th:src="@{${imgMap.get('3152').getUrl()}}">
-
-                            </a>
-                        </div>
-                    </div>
-                    <!-- single-banner end -->
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- 好评商品 -->
+
+<!-- 好评商品（6） -->
 <div class="features-area pad-60">
     <div class="container">
         <!-- section-heading start -->
@@ -625,7 +945,7 @@
     </div>
 </div>
 
-<!-- 新品推荐 -->
+<!-- 新品推荐（13） -->
 <div class="new-product-area pad-60">
     <div class="container">
         <!-- section-heading start -->
@@ -642,7 +962,7 @@
         <!-- section-heading end -->
         <div class="row">
             <div class="features-curosel">
-                <!-- single-product start -->
+                <!-- 1 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <span class="sale-text">特卖</span>
@@ -691,8 +1011,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 2 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <span class="sale-text">特卖</span>
@@ -741,8 +1060,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 3 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <div class="product-img">
@@ -790,8 +1108,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 4 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <span class="sale-text">特卖</span>
@@ -840,8 +1157,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 5 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <div class="product-img">
@@ -889,8 +1205,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 6 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <span class="sale-text">特卖</span>
@@ -939,8 +1254,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 7 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <div class="product-img">
@@ -988,8 +1302,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 8 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <span class="sale-text">特卖</span>
@@ -1038,8 +1351,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 9 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <span class="sale-text">特卖</span>
@@ -1088,8 +1400,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 10 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <div class="product-img">
@@ -1137,8 +1448,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 11 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <div class="product-img">
@@ -1186,8 +1496,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 12 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <div class="product-img">
@@ -1235,8 +1544,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 13 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product">
                         <span class="sale-text">特卖</span>
@@ -1285,13 +1593,12 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
             </div>
         </div>
     </div>
 </div>
 
-<!-- 猜你喜欢 -->
+<!-- 猜你喜欢（12个） -->
 <div class="top-sells-area pad-60">
     <div class="container">
         <!-- section-heading start -->
@@ -1308,7 +1615,7 @@
         <!-- section-heading end -->
         <div class="row">
             <div class="top-sells-curosel">
-                <!-- single-product start -->
+                <!-- 1 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product first-sells">
                         <div class="product-img">
@@ -1399,8 +1706,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 2 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product first-sells">
                         <div class="product-img">
@@ -1487,8 +1793,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 3 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product first-sells">
                         <div class="product-img">
@@ -1575,8 +1880,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 4 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product first-sells">
                         <div class="product-img">
@@ -1663,8 +1967,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 5 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product first-sells">
                         <div class="product-img">
@@ -1751,8 +2054,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
-                <!-- single-product start -->
+                <!-- 6 -->
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product first-sells">
                         <div class="product-img">
@@ -1839,7 +2141,72 @@
                         </div>
                     </div>
                 </div>
-                <!-- single-product end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 广告位banner -->
+<div class="banner-area">
+    <div class="container">
+        <div class="row">
+            <p style="position: relative;left: 15px">广告位</p>
+            <!-- single-banner start -->
+            <div class="col-md-5 col-sm-5 col-xs-12">
+                <div class="single-banner">
+                    <!--475x570-->
+                    <a>
+                        <img alt="slide" th:if="${imgMap.get('475')} eq null" th:src="@{/image/user/home/banner/1.jpg}">
+                        <img alt="slide" style="width: 470px;height: 570px" th:if="${imgMap.get('475')} ne null"
+                             th:src="@{${imgMap.get('475').getUrl()}}">
+                    </a>
+                </div>
+            </div>
+            <!-- single-banner end -->
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                <div class="row">
+                    <!-- single-banner start -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="single-banner banner-margin">
+                            <!--674x264-->
+                            <a>
+                                <img alt="slide" th:if="${imgMap.get('674')} eq null"
+                                     th:src="@{/image/user/home/banner/2.jpg}">
+                                <img alt="slide" style="width: 674px;height: 264px"
+                                     th:if="${imgMap.get('674')} ne null" th:src="@{${imgMap.get('674').getUrl()}}">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- single-banner end -->
+                    <!-- single-banner start -->
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="single-banner">
+                            <!--315x282-->
+                            <a>
+                                <img alt="slide" th:if="${imgMap.get('3151')} eq null"
+                                     th:src="@{/image/user/home/banner/3.jpg}">
+                                <img alt="slide" style="width: 315px;height: 282px"
+                                     th:if="${imgMap.get('3151')} ne null" th:src="@{${imgMap.get('3151').getUrl()}}">
+
+                            </a>
+                        </div>
+                    </div>
+                    <!-- single-banner end -->
+                    <!-- single-banner start -->
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="single-banner">
+                            <!--315x282-->
+                            <a>
+                                <img alt="slide" th:if="${imgMap.get('3152')} eq null"
+                                     th:src="@{/image/user/home/banner/3.jpg}">
+                                <img alt="slide" style="width: 315px;height: 282px"
+                                     th:if="${imgMap.get('3152')} ne null" th:src="@{${imgMap.get('3152').getUrl()}}">
+
+                            </a>
+                        </div>
+                    </div>
+                    <!-- single-banner end -->
+                </div>
             </div>
         </div>
     </div>
