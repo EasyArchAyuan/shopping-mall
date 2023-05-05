@@ -65,7 +65,7 @@ public interface SysOrderMapper {
                 String userPhone, String couponCode, int payWay, String cartId, float merchantRatio);
 
     // 收益
-    float websiteProfitCount();
+    Float websiteProfitCount();
 
     Float merchantProfitCount(int merchantId);
 }
