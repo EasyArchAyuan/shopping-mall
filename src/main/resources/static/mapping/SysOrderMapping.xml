@@ -101,7 +101,7 @@
     </select>
 
     <select id="merchantProfitCount" resultType="java.lang.Float">
-        select ifnull(sum(order_price , 0.00)
+        select ifnull(sum(order_price), 0.00)
         from sys_order
         where order_merchant = #{merchantId}
         and order_state = 1;
