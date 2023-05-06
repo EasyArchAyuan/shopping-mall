@@ -6,7 +6,6 @@ import com.example.shopping.common.entity.SysUser;
 import com.example.shopping.common.mapper.*;
 import com.example.shopping.common.utils.IsEmptyUtil;
 import com.example.shopping.common.utils.QRCodeUtil;
-import com.example.shopping.common.utils.StringUtil;
 import com.example.shopping.wxpay.config.MyWXPayConfig;
 import com.example.shopping.wxpay.sdk.WXPay;
 import com.example.shopping.wxpay.sdk.WXPayConstants;
@@ -27,7 +26,10 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * <p>微信支付服务类</p>
@@ -37,8 +39,6 @@ import java.util.*;
  */
 @Service
 public class WxPayService {
-    @Autowired
-    StringUtil stringUtil;
     @Autowired
     SysOrderMapper orderMapper;
     @Autowired
@@ -92,11 +92,11 @@ public class WxPayService {
             if (cartArr[i].equals("0")) {
                 sql = orderMapper.insert1(orderId, createTime, Integer.parseInt(numArr[i]), mark, Integer.parseInt(userArr[i]),
                         Integer.parseInt(merchantsArr[i]), new BigDecimal(dfPrice.format(Double.valueOf(pricesArr[i]))),
-                        Integer.parseInt(goodsArr[i]), notes, address, name, phone, code, way, merchant.getRatio());
+                        Integer.parseInt(goodsArr[i]), notes, address, name, phone, code, way);
             } else {
                 sql = orderMapper.insert2(orderId, createTime, Integer.parseInt(numArr[i]), mark, Integer.parseInt(userArr[i]),
                         Integer.parseInt(merchantsArr[i]), new BigDecimal(dfPrice.format(Double.valueOf(pricesArr[i]))),
-                        Integer.parseInt(goodsArr[i]), notes, address, name, phone, code, way, cartArr[i], merchant.getRatio());
+                        Integer.parseInt(goodsArr[i]), notes, address, name, phone, code, way, cartArr[i]);
             }
             // 将商品库存做相应的减少
             int delStock = goodsMapper.delStock(Integer.parseInt(goodsArr[i]), Integer.parseInt(numArr[i]));

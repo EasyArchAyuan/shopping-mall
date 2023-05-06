@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="no-referrer" name="referrer"/>
-    <title>家乐超市商户主页</title>
+    <title>家乐超市员工主页</title>
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta content="" name="keywords"/>
@@ -55,7 +55,7 @@
                         <div class="col-md-8 market-update-left">
                             <h4>总盈利</h4>
                             <h3>￥[[${profit}]]</h3>
-                            <p>本店铺的总盈利</p>
+                            <p>本超市总盈利</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -68,7 +68,7 @@
                         <div class="col-md-8 market-update-left">
                             <h4>评论总数</h4>
                             <h3>[[${commentCount}]]</h3>
-                            <p>本店商品的总评论条数</p>
+                            <p>本超市总评论条数</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -81,7 +81,7 @@
                         <div class="col-md-8 market-update-left">
                             <h4>会员总数</h4>
                             <h3>[[${userCount}]]</h3>
-                            <p>本店铺的会员总数</p>
+                            <p>本超市会员总数</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -107,7 +107,7 @@
                 <div class="col-md-4 agile-last-left">
                     <div class="agile-last-grid">
                         <div class="area-grids-heading">
-                            <h3>月盈利</h3>
+                            <h3>日盈利</h3>
                         </div>
                         <div id="graph7"></div>
                         <script>
@@ -115,10 +115,10 @@
                             Morris.Area({
                                 element: 'graph7',
                                 data: [
-                                    {x: '2013-03-30 22:00:00', y: 3, z: 3},
-                                    {x: '2013-03-31 00:00:00', y: 2, z: 0},
-                                    {x: '2013-03-31 02:00:00', y: 0, z: 2},
-                                    {x: '2013-03-31 04:00:00', y: 4, z: 4}
+                                    {x: '2023-04-01 22:00:00', y: 3, z: 3},
+                                    {x: '2023-04-10 00:00:00', y: 2, z: 0},
+                                    {x: '2023-04-20 02:00:00', y: 0, z: 2},
+                                    {x: '2023-04-30 04:00:00', y: 4, z: 4}
                                 ],
                                 xkey: 'x',
                                 ykeys: ['y', 'z'],
@@ -131,29 +131,28 @@
                 <div class="col-md-4 agile-last-left agile-last-middle">
                     <div class="agile-last-grid">
                         <div class="area-grids-heading">
-                            <h3>日盈利</h3>
+                            <h3>月盈利</h3>
                         </div>
                         <div id="graph8"></div>
                         <script>
-                            /* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
                             var day_data = [
-                                {"period": "2016-10-01", "licensed": 3407, "sorned": 660},
-                                {"period": "2016-09-30", "licensed": 3351, "sorned": 629},
-                                {"period": "2016-09-29", "licensed": 3269, "sorned": 618},
-                                {"period": "2016-09-20", "licensed": 3246, "sorned": 661},
-                                {"period": "2016-09-19", "licensed": 3257, "sorned": 667},
-                                {"period": "2016-09-18", "licensed": 3248, "sorned": 627},
-                                {"period": "2016-09-17", "licensed": 3171, "sorned": 660},
-                                {"period": "2016-09-16", "licensed": 3171, "sorned": 676},
-                                {"period": "2016-09-15", "licensed": 3201, "sorned": 656},
-                                {"period": "2016-09-10", "licensed": 3215, "sorned": 622}
+                                {"时间": "2022-08-01", "收入": 2812, "支出": 660},
+                                {"时间": "2022-09-01", "收入": 4231, "支出": 629},
+                                {"时间": "2022-10-01", "收入": 5219, "支出": 618},
+                                {"时间": "2022-11-01", "收入": 2756, "支出": 661},
+                                {"时间": "2022-12-01", "收入": 6512, "支出": 667},
+                                {"时间": "2023-01-01", "收入": 7012, "支出": 627},
+                                {"时间": "2023-02-01", "收入": 9713, "支出": 660},
+                                {"时间": "2023-03-01", "收入": 3171, "支出": 676},
+                                {"时间": "2023-04-01", "收入": 6201, "支出": 656},
+                                {"时间": "2023-05-01", "收入": 5615, "支出": 622}
                             ];
                             Morris.Bar({
                                 element: 'graph8',
                                 data: day_data,
-                                xkey: 'period',
-                                ykeys: ['licensed', 'sorned'],
-                                labels: ['Licensed', 'SORN'],
+                                xkey: '时间',
+                                ykeys: ['收入', '支出'],
+                                labels: ['收入', '支出'],
                                 xLabelAngle: 60
                             });
                         </script>
@@ -187,7 +186,6 @@
                                 parseTime: false
                             });
                         </script>
-
                     </div>
                 </div>
                 <div class="clearfix"></div>

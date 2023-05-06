@@ -18,16 +18,16 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class AdminHomeController {
     @Autowired
-    SysOrderMapper orderMapper;
+    private SysOrderMapper orderMapper;
     @Autowired
-    SysGoodsMapper goodsMapper;
+    private SysGoodsMapper goodsMapper;
     @Autowired
-    SysUserMapper userMapper;
+    private SysUserMapper userMapper;
 
     @ApiOperation("后台主页页面")
     @GetMapping("/admin/home")
     public ModelAndView index(ModelAndView modelAndView) {
-        float profit = orderMapper.websiteProfitCount();
+        Float profit = orderMapper.merchantProfitCount(1);
         int orderCount = orderMapper.payCount();
         int goodsCount = goodsMapper.allGoodsCount();
         int userCount = userMapper.userCount();

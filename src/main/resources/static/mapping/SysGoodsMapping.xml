@@ -5,6 +5,7 @@
     <resultMap id="SysGoodsMap" type="com.example.shopping.common.entity.SysGoods">
         <result column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
         <result column="describe" jdbcType="VARCHAR" property="describe"/>
         <result column="img" jdbcType="VARCHAR" property="img"/>
         <result column="price" jdbcType="DECIMAL" property="price"/>
@@ -64,6 +65,14 @@
         where state = 1 limit #{num};
     </select>
 
+    <select id="findType" resultType="com.example.shopping.common.entity.SysGoods">
+        select *
+        from sys_goods
+        where state = 1
+        and type = #{type}
+        order by id desc limit #{num};
+    </select>
+
     <select id="findById" resultType="com.example.shopping.common.entity.SysGoods">
         select *
         from sys_goods
@@ -74,8 +83,8 @@
         select *
         from sys_goods
         where `name` and state = 1 like concat(concat('%', #{keyword}), '%')
-           or `describe` like
-              concat(concat('%', #{keyword}), '%');
+        or `describe` like
+        concat(concat('%', #{keyword}), '%');
     </select>
 
     <select id="findByMt" resultType="com.example.shopping.common.entity.SysGoods">
@@ -93,7 +102,7 @@
 
     <insert id="insert1">
         insert into sys_goods
-        values (default, #{name}, #{describe}, default, #{price}, default, #{merchant}, #{stock});
+        values (default, #{name}, #{type}, #{describe}, default, #{price}, default, #{merchant}, #{stock});
     </insert>
 
     <update id="updateState">
@@ -116,30 +125,30 @@
 
     <update id="updateGoods1">
         update sys_goods
-        set name       = #{name},
-            `describe` = #{describe},
-            price      = #{price},
-            merchant   = #{merchant},
-            stock      =
-                #{stock}
+        set name = #{name},
+        `describe` = #{describe},
+        price = #{price},
+        merchant = #{merchant},
+        stock =
+        #{stock}
         where id = #{id};
     </update>
 
     <update id="updateGoods2">
         update sys_goods
-        set name       = #{name},
-            `describe` = #{describe},
-            price      = #{price},
-            merchant   = #{merchant},
-            stock      =
-                #{stock},
-            img        = #{imgUrl}
+        set name = #{name},
+        `describe` = #{describe},
+        price = #{price},
+        merchant = #{merchant},
+        stock =
+        #{stock},
+        img = #{imgUrl}
         where id = #{id};
     </update>
 
     <insert id="insert2">
         insert into sys_goods
-        values (default, #{name}, #{describe}, #{img}, #{price}, default, #{merchant}, #{stock});
+        values (default, #{name}, #{type}, #{describe}, #{img}, #{price}, default, #{merchant}, #{stock});
     </insert>
 
     <delete id="deleteById">

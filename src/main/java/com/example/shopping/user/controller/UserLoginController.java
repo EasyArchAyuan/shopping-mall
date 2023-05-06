@@ -80,7 +80,7 @@ public class UserLoginController {
             return "两次密码输入不一致";
         }
         if (result == 1) {
-            return "验证邮件已发送，请留意您的邮箱";
+            return "注册成功！";
         }
         if (result == -1) {
             return "注册超时，请重试";
@@ -88,23 +88,23 @@ public class UserLoginController {
         return "网络出现错误！！";
     }
 
-    @ApiOperation("验证邮件确认注册")
-    @GetMapping("sign-check")
-    public ModelAndView singCheck(ModelAndView modelAndView, @Param("email") String email) {
-        int res = service.singCheck(email);
-        if (res == -1) {
-            modelAndView.setViewName("redirect:/error");
-        }
-        if (res == 0) {
-            modelAndView.addObject("网络超时请重试");
-            modelAndView.setViewName("redirect:login");
-        }
-        if (res == 1) {
-            modelAndView.addObject("msg", "注册成功，请完成登录");
-            modelAndView.setViewName("redirect:login");
-
-        }
-        return modelAndView;
-    }
+//    @ApiOperation("验证邮件确认注册")
+//    @GetMapping("sign-check")
+//    public ModelAndView singCheck(ModelAndView modelAndView, @Param("email") String email) {
+//        int res = service.singCheck(email);
+//        if (res == -1) {
+//            modelAndView.setViewName("redirect:/error");
+//        }
+//        if (res == 0) {
+//            modelAndView.addObject("网络超时请重试");
+//            modelAndView.setViewName("redirect:login");
+//        }
+//        if (res == 1) {
+//            modelAndView.addObject("msg", "注册成功，请完成登录");
+//            modelAndView.setViewName("redirect:login");
+//
+//        }
+//        return modelAndView;
+//    }
 
 }

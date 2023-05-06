@@ -32,8 +32,7 @@ public class MerchantGoodsService {
      * <p>获取当前商户的商品列表</p>
      */
     public List<SysGoods> getMtGoods(HttpSession session, int page, int num) {
-        SysMt sysMt = (SysMt) session.getAttribute("merchant");
-        return goodsMapper.findByMtLimit(sysMt.getId(), (page - 1) * num, num);
+        return goodsMapper.findByMtLimit(1, (page - 1) * num, num);
     }
 
     /**
@@ -44,7 +43,7 @@ public class MerchantGoodsService {
      * 1 添加商品成功
      * 2 必填信息不能为空
      */
-    public int addGoods(String name, String describe, BigDecimal price, MultipartFile img,
+    public int addGoods(String name, String describe, int type, BigDecimal price, MultipartFile img,
                         RedirectAttributes redirectAttributes, int stock,
                         HttpServletRequest request) {
         if (isEmptyUtil.strings(name, describe)) {
@@ -54,13 +53,10 @@ public class MerchantGoodsService {
             return 2;
         }
         int goodsMapperResult;
-        // 获取当前商户id
-        SysMt sysMt = (SysMt) request.getSession().getAttribute("merchant");
-        int merchant = sysMt.getId();
 
         if (Objects.equals(img.getOriginalFilename(), "")) {
             // 执行插入
-            goodsMapperResult = goodsMapper.insert1(name, describe, price, merchant, stock);
+            goodsMapperResult = goodsMapper.insert1(name, type, describe, price, 1, stock);
             if (goodsMapperResult != 1) {
                 return 0;
             }
@@ -77,7 +73,7 @@ public class MerchantGoodsService {
                 return -1;
             }
             // 执行插入
-            goodsMapperResult = goodsMapper.insert2(name, describe, price, merchant, stock, imgUrl);
+            goodsMapperResult = goodsMapper.insert2(name, type, describe, price, 1, stock, imgUrl);
             if (goodsMapperResult != 1) {
                 // sql语句执行失败，将已上传的图片移除
                 fileUtil.deleteFile(imgUrl);
@@ -91,7 +87,7 @@ public class MerchantGoodsService {
      * <p>获取总页数</p>
      */
     public int getAllPage(int num, SysMt merchant) {
-        return (int) Math.ceil((double) goodsMapper.goodsCount(merchant.getId()) / (double) num);
+        return (int) Math.ceil((double) goodsMapper.goodsCount(1) / (double) num);
     }
 
     /**
@@ -126,13 +122,10 @@ public class MerchantGoodsService {
             return 2;
         }
         int goodsMapperResult;
-        // 获取当前商户id
-        SysMt sysMt = (SysMt) request.getSession().getAttribute("merchant");
-        int merchant = sysMt.getId();
 
         if (Objects.equals(img.getOriginalFilename(), "")) {
             // 执行插入
-            goodsMapperResult = goodsMapper.updateGoods1(name, describe, price, merchant, stock, goodsId);
+            goodsMapperResult = goodsMapper.updateGoods1(name, describe, price, 1, stock, goodsId);
             if (goodsMapperResult != 1) {
                 return 0;
             }
@@ -150,7 +143,7 @@ public class MerchantGoodsService {
             }
             // 执行插入
             SysGoods tempGoods = goodsMapper.findById(goodsId);
-            goodsMapperResult = goodsMapper.updateGoods2(name, describe, price, merchant, stock, goodsId, imgUrl);
+            goodsMapperResult = goodsMapper.updateGoods2(name, describe, price, 1, stock, goodsId, imgUrl);
             if (goodsMapperResult != 1) {
                 // sql语句执行失败，将已上传的图片移除
                 fileUtil.deleteFile(imgUrl);

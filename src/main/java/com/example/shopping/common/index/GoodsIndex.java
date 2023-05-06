@@ -32,4 +32,6 @@ public class GoodsIndex {
     private int merchant;
     @Field
     private int stock;
+    @Field
+    private int type;
 }

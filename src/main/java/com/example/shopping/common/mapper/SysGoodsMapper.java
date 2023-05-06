@@ -20,6 +20,8 @@ public interface SysGoodsMapper {
 
     List<SysGoods> findAllEsc(int num);
 
+    List<SysGoods> findType(int num, int type);
+
     List<SysGoods> findRand(int num);
 
     List<SysGoods> findMerchantRand(int merchant, int num);
@@ -46,7 +48,7 @@ public interface SysGoodsMapper {
 
     int updateGoods2(String name, String describe, BigDecimal price, int merchant, int stock, int id, String imgUrl);
 
-    int insert1(String name, String describe, BigDecimal price, int merchant, int stock);
+    int insert1(String name, int type, String describe, BigDecimal price, int merchant, int stock);
 
-    int insert2(String name, String describe, BigDecimal price, int merchant, int stock, String img);
+    int insert2(String name, int type, String describe, BigDecimal price, int merchant, int stock, String img);
 }

@@ -7,7 +7,6 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="ratio" jdbcType="FLOAT" property="ratio"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
         <result column="header" jdbcType="VARCHAR" property="header"/>
     </resultMap>
@@ -24,7 +23,7 @@
     </delete>
 
     <select id="findByEmail" resultType="com.example.shopping.common.entity.SysMt">
-        select id, email, password, name, ratio, state, header
+        select id, email, password, name, state, header
         from sys_mt
         where email = #{email};
     </select>
@@ -36,7 +35,7 @@
     </select>
 
     <select id="findPage" resultType="com.example.shopping.common.entity.SysMt">
-        select id, email, password, name, ratio, state, header
+        select id, email, password, name, state, header
         from sys_mt limit #{curRow},#{pageSize};
     </select>
 
@@ -46,8 +45,8 @@
     </select>
 
     <insert id="insert">
-        insert into sys_mt(id, name, email, password, ratio, state)
-        values (default, #{name}, #{email}, #{password}, #{ratio}, #{state});
+        insert into sys_mt(id, name, email, password, state)
+        values (default, #{name}, #{email}, #{password}, #{state});
     </insert>
 
     <update id="update">
@@ -55,12 +54,6 @@
         set name     = #{name},
             password = #{password}
         where email = #{email};
-    </update>
-
-    <update id="updateRatio">
-        update sys_mt
-        set ratio = #{ratio}
-        where id = #{id};
     </update>
 
     <update id="updateState">

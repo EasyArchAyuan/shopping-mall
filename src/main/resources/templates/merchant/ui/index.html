@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="no-referrer" name="referrer"/>
-    <title>店铺设计</title>
+    <title>超市Logo</title>
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta content="" name="keywords"/>
@@ -75,7 +75,7 @@
             <table style="text-align: center">
                 <tr>
                     <td colspan="2">
-                        <h5>商户头像（推荐logo长宽比例1:1）</h5>
+                        <h5>超市头像（推荐logo长宽比例1:1）</h5>
                         <form enctype="multipart/form-data" method="post" th:action="@{/merchant/update-header}">
                             <!--/*@thymesVar id="lowImg" type="com.example.shopping.common.entity.SysMtUi"*/-->
                             <img height="240" id="header" onclick="upImg('headerInput')"
@@ -91,7 +91,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <h5>商城首页的店铺推荐海报（推荐400x320）</h5>
+                        <h5>超市首页的推荐海报（推荐400x320）</h5>
                         <form enctype="multipart/form-data" method="post" th:action="@{/merchant/update-home-img}">
                             <!--/*@thymesVar id="homeImg" type="com.example.shopping.common.entity.SysMtUi"*/-->
                             <img height="240" id="home400" onclick="upImg('homeInput400')" th:if="${homeImg}!=null"
@@ -109,7 +109,7 @@
                         <br/>
                     </td>
                     <td>
-                        <h5>商城首页的店铺推荐海报（推荐600x310,点击图片选择）</h5>
+                        <h5>超市首页的推荐海报（推荐600x310,点击图片选择）</h5>
                         <form enctype="multipart/form-data" method="post" th:action="@{/merchant/update-home-img}">
                             <!--/*@thymesVar id="lowImg" type="com.example.shopping.common.entity.SysMtUi"*/-->
                             <img height="235" id="home600" onclick="upImg('homeInput600')" th:if="${lowImg}!=null"

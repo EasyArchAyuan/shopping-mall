@@ -22,7 +22,6 @@
         <result property="payWay" jdbcType="INTEGER" column="pay_way"/>
         <result property="payCodeUrl" jdbcType="INTEGER" column="pay_code_url"/>
         <result property="cartId" jdbcType="INTEGER" column="cart_id"/>
-        <result property="merchantRatio" jdbcType="FLOAT" column="merchant_ratio"/>
     </resultMap>
 
     <select id="findLimit" resultMap="SysOrderMap">
@@ -56,7 +55,7 @@
         select *
         from sys_order
         where order_state = 1
-          and order_merchant = #{merchantId}
+        and order_merchant = #{merchantId}
         order by id desc limit #{preNum}, #{sufNum};
     </select>
 
@@ -64,7 +63,7 @@
         select *
         from sys_order
         where order_state = 0
-          and order_merchant = #{merchantId}
+        and order_merchant = #{merchantId}
         order by id desc limit #{preNum}, #{sufNum};
     </select>
 
@@ -92,7 +91,7 @@
         select *
         from sys_order
         where order_id = #{orderId}
-          and order_merchant = #{merchant};
+        and order_merchant = #{merchant};
     </select>
 
     <select id="findByOrderMark" resultMap="SysOrderMap">
@@ -102,16 +101,10 @@
     </select>
 
     <select id="merchantProfitCount" resultType="java.lang.Float">
-        select sum((order_price - merchant_ratio * order_price) / 1)
+        select ifnull(sum(order_price), 0.00)
         from sys_order
         where order_merchant = #{merchantId}
-          and order_state = 1;
-    </select>
-
-    <select id="websiteProfitCount" resultType="java.lang.Float">
-        select sum((merchant_ratio * order_price) / 1)
-        from sys_order
-        where order_state = 1;
+        and order_state = 1;
     </select>
 
     <update id="updateCodeUrl">
@@ -124,7 +117,7 @@
         delete
         from sys_order
         where id = #{id}
-          and order_state = 0;
+        and order_state = 0;
     </delete>
 
     <select id="findByState" resultMap="SysOrderMap">
@@ -140,28 +133,25 @@
 
     <update id="updateState">
         update sys_order
-        set pay_time    = #{pay_time},
-            order_state = 1
+        set pay_time = #{pay_time},
+        order_state = 1
         where order_mark = #{orderMark};
     </update>
 
     <insert id="insert1">
         insert into sys_order(order_id, create_time, goods_num, order_mark, order_user, order_merchant, order_price,
-                              goods_id, order_notes, user_address, user_name, user_phone, coupon_code, pay_way,
-                              merchant_ratio)
+        goods_id, order_notes, user_address, user_name, user_phone, coupon_code, pay_way)
         values (#{orderId},
-                #{createTime}, #{goodsNum}, #{orderMark}, #{orderUser}, #{orderMerchant}, #{orderPrice}, #{goodsId},
-                #{orderNotes}, #{userAddress}, #{userName}, #{userPhone}, #{couponCode}, #{payWay}, #{merchantRatio});
+        #{createTime}, #{goodsNum}, #{orderMark}, #{orderUser}, #{orderMerchant}, #{orderPrice}, #{goodsId},
+        #{orderNotes}, #{userAddress}, #{userName}, #{userPhone}, #{couponCode}, #{payWay});
     </insert>
 
     <insert id="insert2">
         insert into sys_order(order_id, create_time, goods_num, order_mark, order_user, order_merchant, order_price,
-                              goods_id, order_notes, user_address, user_name, user_phone, coupon_code, pay_way, cart_id,
-                              merchant_ratio)
+        goods_id, order_notes, user_address, user_name, user_phone, coupon_code, pay_way, cart_id)
         values (#{orderId},
-                #{createTime}, #{goodsNum}, #{orderMark}, #{orderUser}, #{orderMerchant}, #{orderPrice}, #{goodsId},
-                #{orderNotes}, #{userAddress}, #{userName}, #{userPhone}, #{couponCode}, #{payWay}, #{cartId},
-                #{merchantRatio});
+        #{createTime}, #{goodsNum}, #{orderMark}, #{orderUser}, #{orderMerchant}, #{orderPrice}, #{goodsId},
+        #{orderNotes}, #{userAddress}, #{userName}, #{userPhone}, #{couponCode}, #{payWay}, #{cartId});
     </insert>
 
     <select id="orderCount" resultType="INTEGER">
@@ -173,7 +163,7 @@
         select count(*)
         from sys_order
         where order_state = 1
-          and order_user = #{userId};
+        and order_user = #{userId};
     </select>
 
     <select id="payCount" resultType="INTEGER">
@@ -198,14 +188,20 @@
         select count(*)
         from sys_order
         where order_state = 1
-          and order_merchant = #{merchantId};
+        and order_merchant = #{merchantId};
     </select>
 
     <select id="notPayCountByMt" resultType="INTEGER">
         select count(*)
         from sys_order
         where order_state = 0
-          and order_merchant = #{merchantId};
+        and order_merchant = #{merchantId};
     </select>
+
+    <update id="updateOrderStateById">
+        update sys_order
+        set order_state = #{orderState}
+        where id = #{id};
+    </update>
 
 </mapper>

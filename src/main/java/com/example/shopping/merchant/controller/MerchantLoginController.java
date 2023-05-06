@@ -13,13 +13,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.Service;
 
 /**
  * @author EasyArchAyuan
  * 2023/4/8 12:43
  */
-@Api(tags = "商户模块登录接口")
+@Api(tags = "员工模块登录接口")
 @RestController
 @RequestMapping("/merchant")
 public class MerchantLoginController {
@@ -80,7 +79,7 @@ public class MerchantLoginController {
             case 0:
                 return "必填信息不能为空";
             case 1:
-                return "验证信息已发送至邮箱，请留意接收";
+                return "注册成功（请等待管理员审核通过后登录）";
             case 2:
                 return "该邮箱已被注册";
             case 3:

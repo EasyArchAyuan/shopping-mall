@@ -1,15 +1,12 @@
 package com.example.shopping.user.service;
 
 import com.example.shopping.common.entity.SysGoods;
-import com.example.shopping.common.entity.SysMtUi;
 import com.example.shopping.common.entity.SysUi;
 import com.example.shopping.common.mapper.SysGoodsMapper;
-import com.example.shopping.common.mapper.SysMtUiMapper;
 import com.example.shopping.common.mapper.SysUiMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -19,14 +16,15 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserHomeService {
+
     @Autowired
-    RedisTemplate redisTemplate;
+    private RedisTemplate redisTemplate;
+
     @Autowired
-    SysUiMapper uiMapper;
+    private SysUiMapper uiMapper;
+
     @Autowired
-    SysGoodsMapper goodsMapper;
-    @Autowired
-    SysMtUiMapper mtUiMapper;
+    private SysGoodsMapper goodsMapper;
 
     /**
      * <p>设置缓存  十分钟内有效</p>
@@ -36,6 +34,15 @@ public class UserHomeService {
         redisTemplate.opsForHash().put("homePageCache", "escGoodsMap", modelAndView.getModelMap().get("escGoodsMap"));
         redisTemplate.opsForHash().put("homePageCache", "descGoodsMap", modelAndView.getModelMap().get("descGoodsMap"));
         redisTemplate.opsForHash().put("homePageCache", "randGoodsMap", modelAndView.getModelMap().get("randGoodsMap"));
+
+        redisTemplate.opsForHash().put("homePageCache", "tablewareMap", modelAndView.getModelMap().get("tablewareMap"));
+        redisTemplate.opsForHash().put("homePageCache", "bathroomMap", modelAndView.getModelMap().get("bathroomMap"));
+        redisTemplate.opsForHash().put("homePageCache", "electricalMap", modelAndView.getModelMap().get("electricalMap"));
+        redisTemplate.opsForHash().put("homePageCache", "dailyNecessitiesMap", modelAndView.getModelMap().get("dailyNecessitiesMap"));
+        redisTemplate.opsForHash().put("homePageCache", "cleaningSuppliesMap", modelAndView.getModelMap().get("cleaningSuppliesMap"));
+        redisTemplate.opsForHash().put("homePageCache", "homeSuppliesMap", modelAndView.getModelMap().get("homeSuppliesMap"));
+
+
         redisTemplate.opsForHash().put("homePageCache", "homeImg", modelAndView.getModelMap().get("homeImg"));
         redisTemplate.opsForHash().put("homePageCache", "lowImg", modelAndView.getModelMap().get("lowImg"));
 
@@ -43,7 +50,7 @@ public class UserHomeService {
     }
 
     /*
-     * 获取商城网页的宣传海报
+     * 获取超市网页的宣传海报
      */
     public Map<String, SysUi> getImage() {
         Map<String, SysUi> map = new HashMap<>();
@@ -78,6 +85,18 @@ public class UserHomeService {
     }
 
     /*
+     * 获取分类商品
+     */
+    public Map<String, SysGoods> getType(int num, int type) {
+        List<SysGoods> list = goodsMapper.findType(num, type);
+        Map<String, SysGoods> map = new HashMap<>();
+        for (int i = 0; i < list.size(); i++) {
+            map.put(String.valueOf(i), list.get(i));
+        }
+        return map;
+    }
+
+    /*
      * 获取新出商品
      */
     public Map<String, SysGoods> getDesc(int num) {
@@ -95,18 +114,6 @@ public class UserHomeService {
     public Map<String, SysGoods> getRand(int num) {
         List<SysGoods> list = goodsMapper.findRand(num);
         Map<String, SysGoods> map = new HashMap<>();
-        for (int i = 0; i < list.size(); i++) {
-            map.put(String.valueOf(i), list.get(i));
-        }
-        return map;
-    }
-
-    /*
-     * 获取商户宣传店铺的海报
-     */
-    public Map<String, SysMtUi> getMtImg(int width, int height, int num) {
-        Map<String, SysMtUi> map = new HashMap<>();
-        List<SysMtUi> list = mtUiMapper.findLimit(width, height, num);
         for (int i = 0; i < list.size(); i++) {
             map.put(String.valueOf(i), list.get(i));
         }

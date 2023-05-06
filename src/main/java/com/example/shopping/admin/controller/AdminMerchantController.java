@@ -8,7 +8,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,31 +69,31 @@ public class AdminMerchantController {
         return modelAndView;
     }
 
-    @ApiOperation("修改费率")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "商户id"),
-            @ApiImplicitParam(name = "ratio", value = "修改后的费率")
-    })
-    @PostMapping("update-ratio")
-    public ModelAndView updateRatio(ModelAndView modelAndView, String ratio, int id) {
-        try {
-            float ratioFloat = ((float) ((int) (Float.parseFloat(ratio) * 10))) / 10;
-            if (ratioFloat > 1.0 || ratioFloat < 0.1) {
-                modelAndView.addObject("msg", "费率应在0.1~1.0之间（一位小数）");
-            } else {
-                if (merchantMapper.updateRatio(id, ratioFloat) == 1) {
-                    modelAndView.addObject("msg", "修改成功");
-                } else {
-                    modelAndView.addObject("msg", "修改失败");
-                }
-            }
-        } catch (Exception e) {
-            modelAndView.addObject("msg", "输入的费率不合法");
-        }
-
-        modelAndView.setViewName("redirect:/admin/merchant");
-        return modelAndView;
-    }
+//    @ApiOperation("修改费率")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "id", value = "商户id"),
+//            @ApiImplicitParam(name = "ratio", value = "修改后的费率")
+//    })
+//    @PostMapping("update-ratio")
+//    public ModelAndView updateRatio(ModelAndView modelAndView, String ratio, int id) {
+//        try {
+//            float ratioFloat = ((float) ((int) (Float.parseFloat(ratio) * 10))) / 10;
+//            if (ratioFloat > 1.0 || ratioFloat < 0.1) {
+//                modelAndView.addObject("msg", "费率应在0.1~1.0之间（一位小数）");
+//            } else {
+//                if (merchantMapper.updateRatio(id, ratioFloat) == 1) {
+//                    modelAndView.addObject("msg", "修改成功");
+//                } else {
+//                    modelAndView.addObject("msg", "修改失败");
+//                }
+//            }
+//        } catch (Exception e) {
+//            modelAndView.addObject("msg", "输入的费率不合法");
+//        }
+//
+//        modelAndView.setViewName("redirect:/admin/merchant");
+//        return modelAndView;
+//    }
 
     @ApiOperation("修改商户状态")
     @ApiImplicitParams({

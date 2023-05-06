@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="no-referrer" name="referrer"/>
-    <title>用户列表</title>
+    <title>会员列表</title>
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta content="" name="keywords"/>
@@ -93,18 +93,20 @@
                        th:if="${userList.size()!=0}">
                     <tr>
                         <th>会员头像</th>
-                        <th>会员ID</th>
+                        <!--                        <th>会员ID</th>-->
                         <th>会员名称</th>
                         <th>会员邮箱</th>
+                        <th>会员余额</th>
                         <th>会员标记</th>
                     </tr>
                     <tr style="height: 100px" th:each="user : ${userList}">
                         <td height="80px">
                             <img style="width: 60px;border-radius: 100%" th:src="@{${user.getHeader()}}">
                         </td>
-                        <td th:text="${user.getId()}"></td>
+                        <!--                        <td th:text="${user.getId()}"></td>-->
                         <td th:text="${user.getUsername()}"></td>
                         <td th:text="${user.getEmail()}"></td>
+                        <td style="color: #d31e00" th:text="${user.getBalance()}"></td>
                         <td style="color: dodgerblue" th:if="${user.getMark() == 1}">
                             已验证
                         </td>

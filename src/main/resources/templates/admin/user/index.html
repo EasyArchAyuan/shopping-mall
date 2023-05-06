@@ -66,23 +66,27 @@
                    th:if="${userList.size()!=0}">
                 <tr>
                     <th>会员头像</th>
-                    <th>会员ID</th>
+                    <!--                    <th>会员ID</th>-->
                     <th>会员名称</th>
                     <th>会员邮箱</th>
+                    <th>会员余额</th>
                     <th>会员标记</th>
                 </tr>
                 <tr style="height: 100px" th:each="user : ${userList}">
                     <td height="80px">
                         <img style="width: 60px;border-radius: 100%" th:src="@{${user.getHeader()}}">
                     </td>
-                    <td>
-                        <b>[[${user.getId()}]]</b>
-                    </td>
+                    <!--                    <td>-->
+                    <!--                        <b>[[${user.getId()}]]</b>-->
+                    <!--                    </td>-->
                     <td>
                         <b>[[${user.getUsername()}]]</b>
                     </td>
                     <td>
                         <b>[[${user.getEmail()}]]</b>
+                    </td>
+                    <td style="color: #d31e00">
+                        <b>[[${user.getBalance()}]]</b>
                     </td>
                     <td style="color: dodgerblue" th:if="${user.getMark() == 1}">
                         <b>已验证</b>

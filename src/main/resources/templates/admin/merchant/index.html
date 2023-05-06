@@ -4,7 +4,7 @@
     <meta content="no-referrer" name="referrer"/>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>商户相关</title>
+    <title>员工相关</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link media="screen,projection" rel="stylesheet"
           th:href="@{/lib/admin/home/assets/materialize/css/materialize.min.css}"/>
@@ -71,17 +71,17 @@
         </div>
         <h3 style="color:grey;position:absolute;left: 50%;top: 20%;transform: translate(-50%,-50%)"
             th:if="${mtList.size()==0}">
-            这里还没有任何商户信息！！
+            这里还没有任何员工信息！！
         </h3>
         <!-- /. PAGE INNER  -->
         <table style="text-align: center;background:ghostwhite;font-size: 14px;position: relative;left: 5%;width: 90%">
             <tr style="height: 35px;background: orangered;color: white">
-                <th>商户logo</th>
+                <th>员工logo</th>
                 <th>ID</th>
-                <th>商户名称</th>
-                <th>商户邮箱</th>
+                <th>员工名称</th>
+                <th>员工邮箱</th>
                 <th>状态</th>
-                <th>费率</th>
+<!--                <th>费率</th>-->
                 <th>操作</th>
             </tr>
             <!--/*@thymesVar id="mtList" type="jdk"*/-->
@@ -94,15 +94,15 @@
                 <td>[[${mt.getEmail()}]]</td>
                 <td style="font-weight: bold; color: deepskyblue" th:if="${mt.getState()}==1">已启用</td>
                 <td style="font-weight: bold; color: orangered" th:if="${mt.getState()}==0">未启用</td>
-                <td>
-                    <form method="post" th:action="@{/admin/merchant/update-ratio}">
-                        <br/>
-                        <input name="ratio" style="width: 50px" th:value="${mt.getRatio()}" type="text">
-                        <input hidden name="id" th:value="${mt.getId()}">
-                        <input onclick="if (confirm('确认修改？')==false)return false; " style="width: 65px; border: 0; border-radius: 5px" type="submit"
-                               value="修改">
-                    </form>
-                </td>
+                <!--                <td>-->
+                <!--                    <form method="post" th:action="@{/admin/merchant/update-ratio}">-->
+                <!--                        <br/>-->
+                <!--                        <input name="ratio" style="width: 50px" th:value="${mt.getRatio()}" type="text">-->
+                <!--                        <input hidden name="id" th:value="${mt.getId()}">-->
+                <!--                        <input onclick="if (confirm('确认修改？')==false)return false; " style="width: 65px; border: 0; border-radius: 5px" type="submit"-->
+                <!--                               value="修改">-->
+                <!--                    </form>-->
+                <!--                </td>-->
                 <td>
                     <!--                    <form th:action="@{/admin/merchant/delete-merchant(id=${mt.getId()})}" method="post">-->
                     <!--                        <input type="submit" value="删除" style="width: 65px;"-->
@@ -110,13 +110,13 @@
                     <!--                    </form>-->
                     <form method="post"
                           th:action="@{/admin/merchant/update-merchant(email=${mt.getEmail()},state=0,id=${mt.getId()})}">
-                        <input onclick="if (confirm('确认停用该商户？')==false)return false; " style="width: 65px;background: orangered; color: white; font-weight: bold; border: 0; border-radius: 5px" th:if="${mt.getState()}==1"
+                        <input onclick="if (confirm('确认停用该员工？')==false)return false; " style="width: 65px;background: orangered; color: white; font-weight: bold; border: 0; border-radius: 5px" th:if="${mt.getState()}==1"
                                type="submit"
                                value="停用">
                     </form>
                     <form method="post"
                           th:action="@{/admin/merchant/update-merchant(email=${mt.getEmail()},state=1,id=${mt.getId()})}">
-                        <input onclick="if (confirm('确认启用商户？')==false)return false; " style="width: 65px;background: deepskyblue; color: white; font-weight: bold; border: 0; border-radius: 5px" th:if="${mt.getState()}==0"
+                        <input onclick="if (confirm('确认启用员工？')==false)return false; " style="width: 65px;background: deepskyblue; color: white; font-weight: bold; border: 0; border-radius: 5px" th:if="${mt.getState()}==0"
                                type="submit"
                                value="启用">
                     </form>
