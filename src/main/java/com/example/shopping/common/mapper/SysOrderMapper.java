@@ -68,4 +68,6 @@ public interface SysOrderMapper {
     Float websiteProfitCount();
 
     Float merchantProfitCount(int merchantId);
+
+    int updateOrderStateById(int orderState, int id);
 }

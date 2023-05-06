@@ -26,6 +26,7 @@ public class SysOrder {
     private int orderMerchant;
     private int orderUser;
     private int goodsId;
+    private String goodsName;
     private BigDecimal orderPrice;
     private String orderNotes;
     private String userAddress;

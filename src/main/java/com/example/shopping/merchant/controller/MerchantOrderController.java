@@ -3,6 +3,8 @@ package com.example.shopping.merchant.controller;
 import com.example.shopping.common.entity.SysOrder;
 import com.example.shopping.merchant.service.MerchantOrderService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,4 +55,19 @@ public class MerchantOrderController {
         modelAndView.setViewName("merchant/order/index");
         return modelAndView;
     }
+
+    @ApiOperation("上架商品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "orderStatus", value = "订单状态"),
+            @ApiImplicitParam(name = "orderId", value = "订单ID")
+    })
+    @GetMapping("/merchant/updateOrderState")
+    public ModelAndView updateOrderState(ModelAndView modelAndView, int orderState, int id) {
+        System.out.println("orderStatus = " + orderState + ";id = " + id);
+        orderService.updateOrderState(orderState, id);
+        modelAndView.addObject("msg", "订单状态已变更");
+        modelAndView.setViewName("redirect:order");
+        return modelAndView;
+    }
+
 }
