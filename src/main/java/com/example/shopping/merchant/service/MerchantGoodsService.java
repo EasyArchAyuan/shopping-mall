@@ -43,7 +43,7 @@ public class MerchantGoodsService {
      * 1 添加商品成功
      * 2 必填信息不能为空
      */
-    public int addGoods(String name, String describe, BigDecimal price, MultipartFile img,
+    public int addGoods(String name, String describe, int type, BigDecimal price, MultipartFile img,
                         RedirectAttributes redirectAttributes, int stock,
                         HttpServletRequest request) {
         if (isEmptyUtil.strings(name, describe)) {
@@ -56,7 +56,7 @@ public class MerchantGoodsService {
 
         if (Objects.equals(img.getOriginalFilename(), "")) {
             // 执行插入
-            goodsMapperResult = goodsMapper.insert1(name, describe, price, 1, stock);
+            goodsMapperResult = goodsMapper.insert1(name, type, describe, price, 1, stock);
             if (goodsMapperResult != 1) {
                 return 0;
             }
@@ -73,7 +73,7 @@ public class MerchantGoodsService {
                 return -1;
             }
             // 执行插入
-            goodsMapperResult = goodsMapper.insert2(name, describe, price, 1, stock, imgUrl);
+            goodsMapperResult = goodsMapper.insert2(name, type, describe, price, 1, stock, imgUrl);
             if (goodsMapperResult != 1) {
                 // sql语句执行失败，将已上传的图片移除
                 fileUtil.deleteFile(imgUrl);

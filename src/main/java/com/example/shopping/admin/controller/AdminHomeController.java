@@ -27,7 +27,7 @@ public class AdminHomeController {
     @ApiOperation("后台主页页面")
     @GetMapping("/admin/home")
     public ModelAndView index(ModelAndView modelAndView) {
-        Float profit = orderMapper.websiteProfitCount();
+        Float profit = orderMapper.merchantProfitCount(1);
         int orderCount = orderMapper.payCount();
         int goodsCount = goodsMapper.allGoodsCount();
         int userCount = userMapper.userCount();

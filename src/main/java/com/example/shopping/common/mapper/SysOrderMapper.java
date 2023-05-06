@@ -64,9 +64,6 @@ public interface SysOrderMapper {
                 BigDecimal orderPrice, int goodsId, String orderNotes, String userAddress, String userName,
                 String userPhone, String couponCode, int payWay, String cartId);
 
-    // 收益
-    Float websiteProfitCount();
-
     Float merchantProfitCount(int merchantId);
 
     int updateOrderStateById(int orderState, int id);

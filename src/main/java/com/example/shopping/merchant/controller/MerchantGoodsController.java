@@ -54,25 +54,30 @@ public class MerchantGoodsController {
     @ApiOperation("增加商品")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "商品名称"),
+            @ApiImplicitParam(name = "type", value = "商品类型"),
             @ApiImplicitParam(name = "describe", value = "商品描述"),
             @ApiImplicitParam(name = "price", value = "商品价格"),
             @ApiImplicitParam(name = "img", value = "商品图片"),
             @ApiImplicitParam(name = "stock", value = "商品库存"),
     })
     @PostMapping("/merchant/add-goods")
-    public ModelAndView addGoods(ModelAndView modelAndView, String name, String describe,
-                                 String price, MultipartFile img, String stock,
+    public ModelAndView addGoods(ModelAndView modelAndView, String name, String price,
+                                 String type,
+                                 String describe,
+                                 MultipartFile img, String stock,
                                  RedirectAttributes redirectAttributes,
                                  HttpServletRequest request) {
         // 类型转换
         BigDecimal priceRes;
         int stockTemp;
+        int typeTemp;
         try {
             stockTemp = Integer.parseInt(stock);
             if (stockTemp == 0) {
                 throw new Exception();
             }
             priceRes = new BigDecimal(price);
+            typeTemp = Integer.parseInt(type);
         } catch (Exception e) {
             modelAndView.addObject("msg", "输入的金额或库存不合法");
             modelAndView.setViewName("redirect:goods");
@@ -80,7 +85,7 @@ public class MerchantGoodsController {
         }
 
         // 添加商品
-        int res = goodsService.addGoods(name, describe, priceRes, img, redirectAttributes, stockTemp, request);
+        int res = goodsService.addGoods(name, describe, typeTemp, priceRes, img, redirectAttributes, stockTemp, request);
         switch (res) {
             case -1:
                 modelAndView.addObject("msg", "图片上传失败");
