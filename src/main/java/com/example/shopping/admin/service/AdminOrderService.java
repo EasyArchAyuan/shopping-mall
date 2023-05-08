@@ -1,6 +1,8 @@
 package com.example.shopping.admin.service;
 
+import com.example.shopping.common.entity.SysGoods;
 import com.example.shopping.common.entity.SysOrder;
+import com.example.shopping.common.mapper.SysGoodsMapper;
 import com.example.shopping.common.mapper.SysOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,25 +14,35 @@ import java.util.List;
 public class AdminOrderService {
     @Autowired
     SysOrderMapper orderMapper;
+    @Autowired
+    private SysGoodsMapper goodsMapper;
 
     /**
      * <p>获取订单信息</p>
      */
     public List<SysOrder> getOrderList(int page, int num, int flag) {
+        List<SysOrder> voList = new ArrayList<>();
         switch (flag) {
             // 未支付
             case 0:
-                return orderMapper.findNotPayLimit((page - 1) * num, num);
+                voList = orderMapper.findNotPayLimit((page - 1) * num, num);
+                break;
             // 已支付
             case 1:
-                return orderMapper.findPayLimit((page - 1) * num, num);
+                voList = orderMapper.findPayLimit((page - 1) * num, num);
+                break;
             // 全部订单
             case 2:
-                return orderMapper.findLimit((page - 1) * num, num);
+                voList = orderMapper.findLimit((page - 1) * num, num);
+                break;
             default:
                 break;
         }
-        return null;
+        voList.forEach(it -> {
+            SysGoods sysGoods = goodsMapper.findById(it.getGoodsId());
+            it.setGoodsName(sysGoods.getName());
+        });
+        return voList;
     }
 
     /**
@@ -40,6 +52,8 @@ public class AdminOrderService {
         SysOrder order = orderMapper.findByOrderId(orderId);
         List<SysOrder> list = new ArrayList<>();
         if (order != null) {
+            SysGoods sysGoods = goodsMapper.findById(order.getGoodsId());
+            order.setGoodsName(sysGoods.getName());
             list.add(order);
         }
         return list;

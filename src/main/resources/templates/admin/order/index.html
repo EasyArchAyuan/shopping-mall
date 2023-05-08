@@ -79,7 +79,7 @@
         <form method="get" th:action="@{/admin/order}">
             <table style="position:relative;left:50%;width: 95%;transform: translate(-50%,0)"
                    th:if="${orderList.size()!=0}">
-                <tr>
+                <tr style="height: 36px">
                     <th>订单编号</th>
                     <th>总额</th>
                     <th>创建时间</th>
@@ -87,39 +87,59 @@
                     <th>支付方式</th>
                     <th>支付时间</th>
                     <th>商品数量</th>
-                    <th>商品ID</th>
-<!--                    <th>商户ID</th>-->
-                    <th>会员ID</th>
+                    <th>商品名称</th>
+                    <!--                        <th>会员ID</th>-->
                     <th>收件人</th>
                     <th>联系方式</th>
+                    <th>操作</th>
                 </tr>
-                <tr th:each="order : ${orderList}">
+                <tr style="height: 80px" th:each="order : ${orderList}">
                     <td th:text="${order.getOrderId()}"></td>
                     <td th:text="'￥'+${order.getOrderPrice()}"></td>
                     <td th:text="${#dates.format(order.getCreateTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
 
-                    <td th:if="${order.getOrderState()==1}">已支付</td>
-                    <td th:if="${order.getOrderState()!=1}">未支付</td>
+                    <td style="text-align: center;color: lightpink" th:if="${order.getOrderState()==0}">未支付</td>
+                    <td style="text-align: center;color: lightskyblue" th:if="${order.getOrderState()==1}">已支付
+                    </td>
+                    <td style="text-align: center;color: yellow" th:if="${order.getOrderState()==2}">配送中</td>
+                    <td style="text-align: center;color: lightsteelblue" th:if="${order.getOrderState()==3}">
+                        已送达
+                    </td>
 
-                    <td th:if="${order.getPayWay()==1}">支付宝</td>
                     <td th:if="${order.getPayWay()==0}">微信支付</td>
+                    <td th:if="${order.getPayWay()==2}">会员卡支付</td>
 
-                    <td th:if="${order.getOrderState()==1}"
+                    <td th:if="${order.getOrderState()!=0}"
                         th:text="${#dates.format(order.getPayTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
-                    <td th:if="${order.getOrderState()!=1}">未支付</td>
+                    <td th:if="${order.getOrderState()==0}">未支付</td>
 
                     <td th:text="${order.getGoodsNum()}"></td>
-                    <td th:text="${order.getGoodsId()}"></td>
-<!--                    <td th:text="${order.getOrderMerchant()}"></td>-->
-                    <td th:text="${order.getOrderUser()}"></td>
+                    <td th:text="${order.getGoodsName()}"></td>
+                    <!--                        <td th:text="${order.getOrderMerchant()}"></td>-->
+                    <!--                        <td th:text="${order.getOrderUser()}"></td>-->
                     <td th:text="${order.getUserName()}"></td>
                     <td th:text="${order.getUserPhone()}"></td>
+                    <td style="text-align: center;">
+                        <button style="background: orangered;color: white;border-radius: 5px;width: 50px;height: 30px"
+                                th:if="${order.getOrderState()==1}"
+                                th:onclick="putOrder('[[${order.getId()}]]')"
+                                type="button">
+                            <b>出库</b>
+                        </button>
+
+                        <button style="background: gold;color: white;border-radius: 5px;width: 50px;height: 30px"
+                                th:if="${order.getOrderState()==2}"
+                                th:onclick="offOrder('[[${order.getId()}]]')"
+                                type="button">
+                            <b>送达</b>
+                        </button>
+                    </td>
                 </tr>
-                <tr style="height: 100px">
+                <tr style="height: 100px;text-align: right">
                     <td colspan="12">
-                        <input onclick="delPage()" style="border: 0; border-radius: 5px" type="submit" value="上一页">
+                        <input onclick="delPage()" type="submit" value="上一页">
                         [[${page}]]/[[${allPage}]]
-                        <input onclick="addPage()" style="border: 0; border-radius: 5px" type="submit" value="下一页">
+                        <input onclick="addPage()" type="submit" value="下一页">
                     </td>
                 </tr>
             </table>
@@ -154,6 +174,19 @@
         flag.value = temp;
         window.location.href = "/admin/order?flag=" + temp;
     }
+
+        function putOrder(id) {
+        if (confirm("确认订单出库？")) {
+            window.location = "/merchant/updateOrderState?orderState=2&id=" + id;
+        }
+    }
+
+    function offOrder(id) {
+        if (confirm("确认订单配送成功？")) {
+            window.location = "/merchant/updateOrderState?orderState=3&id=" + id;
+        }
+    }
+
 </script>
 <!-- /. WRAPPER  -->
 <!-- JS Scripts-->

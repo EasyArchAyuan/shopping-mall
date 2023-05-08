@@ -26,7 +26,7 @@ public class MerchantOrderService {
         switch (flag) {
             // 未支付
             case 0:
-                voList = new ArrayList<>(orderMapper.findNotPayLimitByMt(merchantId, (page - 1) * num, num));
+                voList = orderMapper.findNotPayLimitByMt(merchantId, (page - 1) * num, num);
                 break;
             // 已支付
             case 1:
