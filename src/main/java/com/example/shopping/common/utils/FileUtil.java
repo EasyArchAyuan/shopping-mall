@@ -21,7 +21,10 @@ import java.util.Objects;
 @Component
 public class FileUtil {
 
-    String classpath;
+    String classpath = ResourceUtils.getURL("classpath:static/").getPath();
+
+    public FileUtil() throws FileNotFoundException {
+    }
 
     /**
      * <p>文件上传逻辑处理</p>

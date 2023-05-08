@@ -63,11 +63,9 @@ public class MerchantGoodsService {
         } else {
             // 设置filename  文件名由年月日时分秒以及六位随机数组成
             String filename = dateUtil.getNMDHIS() + Math.round(Math.random() * (999999 - 100000) + 100000);
-            // 获取商户id，一个商户对应一个文件夹
-            int id = ((SysMt) request.getSession().getAttribute("merchant")).getId();
             // 接收文件工具类返回的文件位置
             String imgUrl = fileUtil.upFile(img, redirectAttributes, request,
-                    "/data/goods/" + id + "/", filename);
+                    "/data/goods/" + 1 + "/", filename);
             // 文件上传失败
             if (imgUrl == null) {
                 return -1;
