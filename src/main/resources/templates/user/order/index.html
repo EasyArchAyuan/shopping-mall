@@ -170,7 +170,7 @@
                                     </td>
                                     <td class="product-price"><span class="amount">￥[[${order.getOrderPrice()}]]</span>
                                     </td>
-                                    <td class="product-stock-status" th:if="${order.getOrderState()==1}">
+                                    <td class="product-stock-status" th:if="${order.getOrderState()!=0}">
                                         <span class="wishlist-in-stock"
                                               th:text="${#dates.format(order.getPayTime(), 'yyyy-MM-dd HH:mm:ss')}"></span>
                                     </td>
