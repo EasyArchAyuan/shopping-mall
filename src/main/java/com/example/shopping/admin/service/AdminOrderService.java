@@ -77,4 +77,9 @@ public class AdminOrderService {
         }
         return 1;
     }
+
+    public void updateOrderState(int orderState, int id) {
+        int result = orderMapper.updateOrderStateById(orderState, id);
+        System.out.println("update结果：" + result);
+    }
 }

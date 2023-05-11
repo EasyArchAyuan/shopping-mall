@@ -3,6 +3,8 @@ package com.example.shopping.admin.controller;
 import com.example.shopping.admin.service.AdminOrderService;
 import com.example.shopping.common.entity.SysOrder;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +52,20 @@ public class AdminOrderController {
         modelAndView.addObject("allPage", 1);
 
         modelAndView.setViewName("admin/order/index");
+        return modelAndView;
+    }
+
+    @ApiOperation("上架商品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "orderStatus", value = "订单状态"),
+            @ApiImplicitParam(name = "orderId", value = "订单ID")
+    })
+    @GetMapping("/admin/updateOrderState")
+    public ModelAndView updateOrderState(ModelAndView modelAndView, int orderState, int id) {
+        System.out.println("orderStatus = " + orderState + ";id = " + id);
+        orderService.updateOrderState(orderState, id);
+        modelAndView.addObject("msg", "订单状态已变更");
+        modelAndView.setViewName("redirect:order");
         return modelAndView;
     }
 }

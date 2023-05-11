@@ -177,13 +177,13 @@
 
         function putOrder(id) {
         if (confirm("确认订单出库？")) {
-            window.location = "/merchant/updateOrderState?orderState=2&id=" + id;
+            window.location = "/admin/updateOrderState?orderState=2&id=" + id;
         }
     }
 
     function offOrder(id) {
         if (confirm("确认订单配送成功？")) {
-            window.location = "/merchant/updateOrderState?orderState=3&id=" + id;
+            window.location = "/admin/updateOrderState?orderState=3&id=" + id;
         }
     }
 
