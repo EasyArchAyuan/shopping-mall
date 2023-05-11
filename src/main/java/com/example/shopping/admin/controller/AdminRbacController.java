@@ -333,7 +333,7 @@ public class AdminRbacController {
     })
     @PostMapping("/admin/role-access/action")
     public ModelAndView action(ModelAndView modelAndView, int role, int... ids) {
-        modelAndView.setViewName("redirect: /admin/role-access?id=" + role);
+        modelAndView.setViewName("redirect:?id=" + role);
         if (rbacService.setRoleAccess(role, ids)) {
             modelAndView.addObject("msg", "设置成功");
         } else {
