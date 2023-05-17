@@ -104,7 +104,13 @@
         select ifnull(sum(order_price), 0.00)
         from sys_order
         where order_merchant = #{merchantId}
-        and order_state = 1;
+          and order_state != 0;
+    </select>
+
+    <select id="websiteProfitCount" resultType="java.lang.Float">
+        select ifnull(sum((order_price) / 1), 0.00)
+        from sys_order
+        where order_state != 0;
     </select>
 
     <update id="updateCodeUrl">
@@ -162,14 +168,14 @@
     <select id="orderCountByUser" resultType="INTEGER">
         select count(*)
         from sys_order
-        where order_state = 1
-        and order_user = #{userId};
+        where order_state != 0
+          and order_user = #{userId};
     </select>
 
     <select id="payCount" resultType="INTEGER">
         select count(*)
         from sys_order
-        where order_state = 1;
+        where order_state != 0;
     </select>
 
     <select id="notPayCount" resultType="INTEGER">
@@ -187,8 +193,8 @@
     <select id="payCountByMt" resultType="INTEGER">
         select count(*)
         from sys_order
-        where order_state = 1
-        and order_merchant = #{merchantId};
+        where order_state != 0
+          and order_merchant = #{merchantId};
     </select>
 
     <select id="notPayCountByMt" resultType="INTEGER">
