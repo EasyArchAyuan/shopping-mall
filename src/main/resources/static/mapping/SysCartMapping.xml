@@ -40,4 +40,11 @@
           and goods_id = #{goodsId};
     </select>
 
+    <delete id="deleteByUserId">
+        delete
+        from sys_cart
+        where user_id = #{userId};
+    </delete>
+
+
 </mapper>

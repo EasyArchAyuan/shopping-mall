@@ -16,4 +16,6 @@ public interface SysCartMapper {
     int deleteById(int id);
 
     int countByUserIdAndGoodsId(int userId, int goodsId);
+
+    int deleteByUserId(int userid);
 }

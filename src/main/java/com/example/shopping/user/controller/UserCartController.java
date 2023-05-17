@@ -1,5 +1,6 @@
 package com.example.shopping.user.controller;
 
+import com.example.shopping.common.entity.SysUser;
 import com.example.shopping.common.mapper.SysCartMapper;
 import com.example.shopping.user.service.UserCartService;
 import io.swagger.annotations.Api;
@@ -72,6 +73,19 @@ public class UserCartController {
             modelAndView.addObject("msg", "移除购物车商品成功");
         } else {
             modelAndView.addObject("msg", "移除购物车商品失败");
+        }
+        modelAndView.setViewName("redirect:/user/cart");
+        return modelAndView;
+    }
+
+    @ApiOperation("批量移除购物车商品")
+    @GetMapping("/user/batch-del-cart")
+    public ModelAndView batchDelCart(ModelAndView modelAndView, HttpServletRequest request) {
+        // 获取用户信息
+        SysUser user = (SysUser) request.getSession().getAttribute("user");
+        int sql = cartMapper.deleteByUserId(user.getId());
+        if (sql == 1) {
+            modelAndView.addObject("msg", "移除购物车商品成功");
         }
         modelAndView.setViewName("redirect:/user/cart");
         return modelAndView;
