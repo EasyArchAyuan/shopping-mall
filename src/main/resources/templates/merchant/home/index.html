@@ -45,9 +45,8 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper">
-            <!-- //market-->
             <div class="market-updates">
-                <div class="col-md-3 market-update-gd">
+                <div class="col-md-4 market-update-gd">
                     <div class="market-update-block clr-block-3">
                         <div class="col-md-4 market-update-right">
                             <i class="fa fa-usd"></i>
@@ -60,33 +59,49 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
-                <div class="col-md-3 market-update-gd">
+                <div class="col-md-4 market-update-gd">
                     <div class="market-update-block clr-block-2">
                         <div class="col-md-4 market-update-right">
                             <i class="fa fa-eye"> </i>
                         </div>
                         <div class="col-md-8 market-update-left">
-                            <h4>评论总数</h4>
+                            <h4>评论数</h4>
                             <h3>[[${commentCount}]]</h3>
                             <p>本超市总评论条数</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
-                <div class="col-md-3 market-update-gd">
+                <div class="col-md-4 market-update-gd">
+                    <div class="market-update-block clr-block-3">
+                        <div class="col-md-4 market-update-right">
+                            <i class="fa fa-birthday-cake"></i>
+                        </div>
+                        <div class="col-md-8 market-update-left">
+                            <h4>商品数</h4>
+                            <h3>[[${goodsCount}]]</h3>
+                            <p>本超市商品总数</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="market-updates">
+                <div class="col-md-4 market-update-gd">
                     <div class="market-update-block clr-block-1">
                         <div class="col-md-4 market-update-right">
                             <i class="fa fa-users"></i>
                         </div>
                         <div class="col-md-8 market-update-left">
-                            <h4>会员总数</h4>
+                            <h4>会员数</h4>
                             <h3>[[${userCount}]]</h3>
                             <p>本超市会员总数</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
-                <div class="col-md-3 market-update-gd">
+                <div class="col-md-4 market-update-gd">
                     <div class="market-update-block clr-block-4">
                         <div class="col-md-4 market-update-right">
                             <i aria-hidden="true" class="fa fa-shopping-cart"></i>
@@ -94,107 +109,14 @@
                         <div class="col-md-8 market-update-left">
                             <h4>成交量</h4>
                             <h3>[[${orderCount}]]</h3>
-                            <p>本店铺总成交数量</p>
+                            <p>本超市总成交数量</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
                 <div class="clearfix"></div>
             </div>
-            <!-- //market-->
-            <!-- tasks -->
-            <div class="agile-last-grids">
-                <div class="col-md-4 agile-last-left">
-                    <div class="agile-last-grid">
-                        <div class="area-grids-heading">
-                            <h3>日盈利</h3>
-                        </div>
-                        <div id="graph7"></div>
-                        <script>
-                            // This crosses a DST boundary in the UK.
-                            Morris.Area({
-                                element: 'graph7',
-                                data: [
-                                    {x: '2023-04-01 22:00:00', y: 3, z: 3},
-                                    {x: '2023-04-10 00:00:00', y: 2, z: 0},
-                                    {x: '2023-04-20 02:00:00', y: 0, z: 2},
-                                    {x: '2023-04-30 04:00:00', y: 4, z: 4}
-                                ],
-                                xkey: 'x',
-                                ykeys: ['y', 'z'],
-                                labels: ['Y', 'Z']
-                            });
-                        </script>
-
-                    </div>
-                </div>
-                <div class="col-md-4 agile-last-left agile-last-middle">
-                    <div class="agile-last-grid">
-                        <div class="area-grids-heading">
-                            <h3>月盈利</h3>
-                        </div>
-                        <div id="graph8"></div>
-                        <script>
-                            var day_data = [
-                                {"时间": "2022-08-01", "收入": 2812, "支出": 660},
-                                {"时间": "2022-09-01", "收入": 4231, "支出": 629},
-                                {"时间": "2022-10-01", "收入": 5219, "支出": 618},
-                                {"时间": "2022-11-01", "收入": 2756, "支出": 661},
-                                {"时间": "2022-12-01", "收入": 6512, "支出": 667},
-                                {"时间": "2023-01-01", "收入": 7012, "支出": 627},
-                                {"时间": "2023-02-01", "收入": 9713, "支出": 660},
-                                {"时间": "2023-03-01", "收入": 3171, "支出": 676},
-                                {"时间": "2023-04-01", "收入": 6201, "支出": 656},
-                                {"时间": "2023-05-01", "收入": 5615, "支出": 622}
-                            ];
-                            Morris.Bar({
-                                element: 'graph8',
-                                data: day_data,
-                                xkey: '时间',
-                                ykeys: ['收入', '支出'],
-                                labels: ['收入', '支出'],
-                                xLabelAngle: 60
-                            });
-                        </script>
-                    </div>
-                </div>
-                <div class="col-md-4 agile-last-left agile-last-right">
-                    <div class="agile-last-grid">
-                        <div class="area-grids-heading">
-                            <h3>年盈利</h3>
-                        </div>
-                        <div id="graph9"></div>
-                        <script>
-                            var day_data = [
-                                {"elapsed": "I", "value": 34},
-                                {"elapsed": "II", "value": 24},
-                                {"elapsed": "III", "value": 3},
-                                {"elapsed": "IV", "value": 12},
-                                {"elapsed": "V", "value": 13},
-                                {"elapsed": "VI", "value": 22},
-                                {"elapsed": "VII", "value": 5},
-                                {"elapsed": "VIII", "value": 26},
-                                {"elapsed": "IX", "value": 12},
-                                {"elapsed": "X", "value": 19}
-                            ];
-                            Morris.Line({
-                                element: 'graph9',
-                                data: day_data,
-                                xkey: 'elapsed',
-                                ykeys: ['value'],
-                                labels: ['value'],
-                                parseTime: false
-                            });
-                        </script>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
         </section>
-        <!-- footer -->
-        <div class="footer">
-        </div>
-        <!-- / footer -->
     </section>
     <!--main content end-->
 </section>
